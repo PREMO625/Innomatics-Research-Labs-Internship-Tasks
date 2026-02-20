@@ -34,6 +34,7 @@ Each task is designed to strengthen problem-solving skills and build a solid fou
 | **Task 1** | Foundational Logic Building<br/>• User Authentication System<br/>• Pass/Fail Analyzer<br/>• Control Flow Challenges | [📓 View Task 1](Logic_Building_Task_1.ipynb) | ✅ Complete |
 | **Task 2** | Advanced Problem Solving<br/>• Unique Word Counter<br/>• Salary Data Analysis<br/>• Min/Max Finder & More | [📓 View Task 2](Feb_2026_Internship_–_Logic_Building_Task_2.ipynb) | ✅ Complete |
 | **Task 3** | Data Processing & Analysis<br/>• Working with Real Datasets<br/>• Data Manipulation Techniques<br/>• Statistical Analysis & Insights | [📓 View Task 3](Data_Processing_and_Analysis_Task_3_.ipynb) | ✅ Complete |
+| **Task 4** | Functions with Loops Mastery<br/>• Mobile Recharge Validator<br/>• Inventory Alert System<br/>• Cab Fare Estimator & More | [📓 View Task 4](Feb_Internship_2026_Function_with_Loops.ipynb) | ✅ Complete |
 
 ---
 
