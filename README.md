@@ -31,11 +31,12 @@ Each task is designed to strengthen problem-solving skills and build a solid fou
 
 | Task | Description | Notebook | Status |
 |:----:|:------------|:---------|:------:|
-| **Task 1** | Foundational Logic Building<br/>• User Authentication System<br/>• Pass/Fail Analyzer<br/>• Control Flow Challenges | [📓 View Task 1](Logic_Building_Task_1.ipynb) | ✅ Complete |
-| **Task 2** | Advanced Problem Solving<br/>• Unique Word Counter<br/>• Salary Data Analysis<br/>• Min/Max Finder & More | [📓 View Task 2](Feb_2026_Internship_–_Logic_Building_Task_2.ipynb) | ✅ Complete |
-| **Task 3** | Data Processing & Analysis<br/>• Working with Real Datasets<br/>• Data Manipulation Techniques<br/>• Statistical Analysis & Insights | [📓 View Task 3](Data_Processing_and_Analysis_Task_3_.ipynb) | ✅ Complete |
-| **Task 4** | Functions with Loops Mastery<br/>• Mobile Recharge Validator<br/>• Inventory Alert System<br/>• Cab Fare Estimator & More | [📓 View Task 4](Feb_Internship_2026_Task%204.ipynb) | ✅ Complete |
-| **Task 5** | Real-World Function Applications<br/>• Post Engagement Analyzer<br/>• Medicine Stock Alert System<br/>• Electricity Bill Calculator & More | [📓 View Task 5](Feb_Internship_2026_Task_5.ipynb) | ✅ Complete |
+| **Task 1** | Foundational Logic Building<br/>• User Authentication System<br/>• Pass/Fail Analyzer<br/>• Control Flow Challenges | [📓 View Task 1](Notebooks/Task%201%20Logic_Building.ipynb) | ✅ Complete |
+| **Task 2** | Advanced Problem Solving<br/>• Unique Word Counter<br/>• Salary Data Analysis<br/>• Min/Max Finder & More | [📓 View Task 2](Notebooks/Task%202%20Feb_2026_Internship_–_Logic_Building.ipynb) | ✅ Complete |
+| **Task 3** | Data Processing & Analysis<br/>• Working with Real Datasets<br/>• Data Manipulation Techniques<br/>• Statistical Analysis & Insights | [📓 View Task 3](Notebooks/Task%203%20Data_Processing_and_Analysis.ipynb) | ✅ Complete |
+| **Task 4** | Functions with Loops Mastery<br/>• Mobile Recharge Validator<br/>• Inventory Alert System<br/>• Cab Fare Estimator & More | [📓 View Task 4](Notebooks/Task%204%20Feb_Internship_2026.ipynb) | ✅ Complete |
+| **Task 5** | Real-World Function Applications<br/>• Post Engagement Analyzer<br/>• Medicine Stock Alert System<br/>• Electricity Bill Calculator & More | [📓 View Task 5](Notebooks/Task%205%20Feb_Internship_2026.ipynb) | ✅ Complete |
+| **Task 6** | Function-Based Problem Solving<br/>• Smart Parking Lot Management<br/>• Food Delivery Time Estimator<br/>• Server Load Classification & More | [📓 View Task 6](Notebooks/Task_6_Function_Based_Problem_Solving.ipynb) | ✅ Complete |
 
 ---
 
