@@ -126,7 +126,7 @@ Through this internship, I'm developing:
 
 [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@premo625geet)
 [![GitHub](https://img.shields.io/badge/GitHub-PREMO625-181717?style=for-the-badge&logo=github)](https://github.com/PREMO625)
-[![HackerRank](https://img.shields.io/badge/HackerRank-premo625-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/Premo)
+[![HackerRank](https://img.shields.io/badge/HackerRank-premo-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/Premo)
 
 **Feedback and suggestions are always welcome!** 💬
 
