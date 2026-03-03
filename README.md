@@ -6,6 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PREMO625)
+[![HackerRank](https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/premo625)
 
 > *"Building logic, one solution at a time. Learning by doing, growing by sharing."* 💡
 
@@ -37,6 +38,24 @@ Each task is designed to strengthen problem-solving skills and build a solid fou
 | **Task 4** | Functions with Loops Mastery<br/>• Mobile Recharge Validator<br/>• Inventory Alert System<br/>• Cab Fare Estimator & More | [📓 View Task 4](Notebooks/Task%204%20Feb_Internship_2026.ipynb) | ✅ Complete |
 | **Task 5** | Real-World Function Applications<br/>• Post Engagement Analyzer<br/>• Medicine Stock Alert System<br/>• Electricity Bill Calculator & More | [📓 View Task 5](Notebooks/Task%205%20Feb_Internship_2026.ipynb) | ✅ Complete |
 | **Task 6** | Function-Based Problem Solving<br/>• Smart Parking Lot Management<br/>• Food Delivery Time Estimator<br/>• Server Load Classification & More | [📓 View Task 6](Notebooks/Task_6_Function_Based_Problem_Solving.ipynb) | ✅ Complete |
+| **Task 7** | Object-Oriented Programming Basics<br/>• Smart Light Controller<br/>• Employee ID Card System<br/>• Mobile Contact Record<br/>• Product Price Tag Generator<br/>• Movie Rating Display System<br/>• Delivery Address Manager | [📓 View Task 7](Notebooks/Feb_Internship_2026_Task_7.ipynb) | ✅ Complete |
+
+---
+
+## 🏆 HackerRank Practice Journey
+
+Alongside the internship tasks, I consistently practised Python on **HackerRank** — solving problems daily across 5 structured sessions.
+
+🔗 **Profile:** [https://www.hackerrank.com/profile/Premo](https://www.hackerrank.com/profile/Premo)
+
+| Session | Topics Covered | Date Range | Problems Solved |
+|:-------:|:--------------|:----------:|:---------------:|
+| **Day 1** | Python Basics & Lists | 18 Feb – 20 Feb 2026 | 21 |
+| **Day 2** | Strings & Sets | 20 Feb – 23 Feb 2026 | 30 |
+| **Day 3** | Sets, Calendar, Exceptions & Collections | 23 Feb – 25 Feb 2026 | 20 |
+| **Day 4** | Regex & Decorators | 25 Feb – 27 Feb 2026 | 20 |
+| **Day 5** | NumPy | 27 Feb – 02 Mar 2026 | 16 |
+| | | **Total** | **107** |
 
 ---
 
@@ -107,6 +126,7 @@ Through this internship, I'm developing:
 
 [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@premo625geet)
 [![GitHub](https://img.shields.io/badge/GitHub-PREMO625-181717?style=for-the-badge&logo=github)](https://github.com/PREMO625)
+[![HackerRank](https://img.shields.io/badge/HackerRank-premo625-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/premo625)
 
 **Feedback and suggestions are always welcome!** 💬
 
@@ -124,6 +144,6 @@ This repository is maintained for educational purposes as part of the **Innomati
 
 **Made with ❤️ and Python**
 
-*Last Updated: February 2026*
+*Last Updated: March 2026*
 
 </div>
