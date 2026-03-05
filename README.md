@@ -42,6 +42,36 @@ Each task is designed to strengthen problem-solving skills and build a solid fou
 
 ---
 
+## 🚀 FASTAPI Project — IN226099102_FASTAPI
+
+A hands-on introduction to building APIs with **FastAPI**. This folder contains an assignment demonstrating a minimal API, a simple frontend demo, and a `requirements.txt` to reproduce the environment.
+
+### 📁 Assignment 1 (FastAPI)
+
+- **Overview:** A small FastAPI app and an HTML demo created during Day 1 of the FastAPI module. Useful for learning routing, request handling, and serving a static HTML demo.
+- **Files:**
+    - [IN226099102_FASTAPI/ASSIGNMENT 1/main.py](IN226099102_FASTAPI/ASSIGNMENT%201/main.py)
+    - [IN226099102_FASTAPI/ASSIGNMENT 1/fastapi_day1_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%201/fastapi_day1_assignment.html)
+    - [IN226099102_FASTAPI/ASSIGNMENT 1/requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%201/requirements.txt)
+
+### ▶️ Quick Start
+
+Run the assignment locally:
+
+```bash
+cd "IN226099102_FASTAPI/ASSIGNMENT 1"
+python -m venv .venv
+# Windows PowerShell activation:
+.venv\Scripts\Activate.ps1
+# or (cmd):
+.venv\Scripts\activate.bat
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+Open the demo at http://127.0.0.1:8000 or view the static HTML file in your browser to explore the example API.
+
+---
 ## 🏆 HackerRank Practice Journey
 
 Alongside the internship tasks, I consistently practised Python on **HackerRank** — solving problems daily across 5 structured sessions.
