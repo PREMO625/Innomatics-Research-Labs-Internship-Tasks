@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PREMO625)
-[![HackerRank](https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/premo625)
+[![HackerRank](https://img.shields.io/badge/HackerRank-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/Premo)
 
 > *"Building logic, one solution at a time. Learning by doing, growing by sharing."* 💡
 
@@ -156,7 +156,7 @@ Through this internship, I'm developing:
 
 [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@premo625geet)
 [![GitHub](https://img.shields.io/badge/GitHub-PREMO625-181717?style=for-the-badge&logo=github)](https://github.com/PREMO625)
-[![HackerRank](https://img.shields.io/badge/HackerRank-premo625-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/premo625)
+[![HackerRank](https://img.shields.io/badge/HackerRank-premo-2EC866?style=for-the-badge&logo=hackerrank&logoColor=white)](https://www.hackerrank.com/profile/Premo)
 
 **Feedback and suggestions are always welcome!** 💬
 
