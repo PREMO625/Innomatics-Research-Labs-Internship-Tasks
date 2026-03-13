@@ -44,19 +44,17 @@ Each task is designed to strengthen problem-solving skills and build a solid fou
 
 ## 🚀 FASTAPI Project — IN226099102_FASTAPI
 
-A hands-on introduction to building APIs with **FastAPI**. This folder contains an assignment demonstrating a minimal API, a simple frontend demo, and a `requirements.txt` to reproduce the environment.
+A hands-on introduction to building APIs with **FastAPI**, structured the same way as the notebook task table. Each assignment includes the API code, an accompanying HTML walkthrough, and environment files for easy reproduction.
 
-### 📁 Assignment 1 (FastAPI)
-
-- **Overview:** A small FastAPI app and an HTML demo created during Day 1 of the FastAPI module. Useful for learning routing, request handling, and serving a static HTML demo.
-- **Files:**
-    - [IN226099102_FASTAPI/ASSIGNMENT 1/main.py](IN226099102_FASTAPI/ASSIGNMENT%201/main.py)
-    - [IN226099102_FASTAPI/ASSIGNMENT 1/fastapi_day1_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%201/fastapi_day1_assignment.html)
-    - [IN226099102_FASTAPI/ASSIGNMENT 1/requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%201/requirements.txt)
+| Assignment | Focus & Highlights | Key Files | Status |
+|:----------:|:-------------------|:----------|:------:|
+| **Assignment 1** | Day 1 FastAPI primer — basic routing, JSON responses, and a static HTML demo page. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%201/main.py) · [fastapi_day1_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%201/fastapi_day1_assignment.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%201/requirements.txt) | ✅ Complete |
+| **Assignment 2** | Day 2 CRUD practice — product list operations, status codes, and OpenAPI docs exploration. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%202/main.py) · [fastapi_day2_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%202/fastapi_day2_assignment.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%202/requirements.txt) | ✅ Complete |
+| **Assignment 3** | Day 4 extensions — validations, error handling, and cleaner response models. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%203/main.py) · [Assignmnet3_FASTAPI_DAY4.html](IN226099102_FASTAPI/ASSIGNMENT%203/Assignmnet3_FASTAPI_DAY4.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%203/requirements.txt) | ✅ Complete |
 
 ### ▶️ Quick Start
 
-Run the assignment locally:
+Run any assignment locally (example shows Assignment 1):
 
 ```bash
 cd "IN226099102_FASTAPI/ASSIGNMENT 1"
@@ -69,7 +67,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-Open the demo at http://127.0.0.1:8000 or view the static HTML file in your browser to explore the example API.
+Open the docs at http://127.0.0.1:8000/docs and hit the listed routes; the dataset resets on server restart.
 
 ---
 ## 🏆 HackerRank Practice Journey
