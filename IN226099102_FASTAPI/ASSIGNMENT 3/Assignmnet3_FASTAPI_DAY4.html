@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FastAPI — Day 4 Assignment</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0e1a; --surface:#111827; --surface2:#1f2937;
+  --border:#2d3748; --text:#e2e8f0; --dim:#64748b;
+  --green:#10b981; --blue:#3b82f6; --yellow:#f59e0b;
+  --red:#ef4444; --purple:#8b5cf6; --cyan:#06b6d4;
+  --orange:#f97316;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; padding:40px 24px 80px; }
+.page { max-width:820px; margin:0 auto; }
+
+/* ── Header ── */
+.header {
+  text-align:center; padding:48px 32px;
+  background:linear-gradient(135deg,#0f172a,#1c1030,#0f172a);
+  border-radius:20px; margin-bottom:36px;
+  border:1px solid #2d3748; position:relative; overflow:hidden;
+}
+.header::before {
+  content:''; position:absolute; top:-60%; right:-10%;
+  width:400px; height:400px; border-radius:50%;
+  background:radial-gradient(circle,rgba(249,115,22,.07),transparent 70%);
+}
+.header-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 14px; border-radius:20px; font-size:12px; font-weight:700;
+  background:rgba(249,115,22,.15); border:1px solid rgba(249,115,22,.3);
+  color:#fdba74; margin-bottom:18px; letter-spacing:1px;
+}
+.header h1 {
+  font-size:clamp(26px,4vw,42px); font-weight:900; line-height:1.2;
+  background:linear-gradient(135deg,#fff,#fdba74,#fcd34d);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.header-desc { color:#94a3b8; font-size:15px; max-width:520px; margin:0 auto 20px; }
+.header-pills { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.pill {
+  padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;
+  display:flex; align-items:center; gap:5px; border:1px solid;
+}
+.pill.blue   { background:rgba(59,130,246,.1);  border-color:rgba(59,130,246,.3);  color:#93c5fd; }
+.pill.green  { background:rgba(16,185,129,.1);  border-color:rgba(16,185,129,.3);  color:#6ee7b7; }
+.pill.yellow { background:rgba(245,158,11,.1);  border-color:rgba(245,158,11,.3);  color:#fcd34d; }
+.pill.purple { background:rgba(139,92,246,.1);  border-color:rgba(139,92,246,.3);  color:#c4b5fd; }
+.pill.orange { background:rgba(249,115,22,.1);  border-color:rgba(249,115,22,.3);  color:#fdba74; }
+
+/* ── Rules ── */
+.rules-box {
+  background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.25);
+  border-radius:14px; padding:20px 24px; margin-bottom:32px; display:flex; gap:14px;
+}
+.rules-icon { font-size:24px; flex-shrink:0; }
+.rules-body h3 { font-size:15px; font-weight:700; color:#fcd34d; margin-bottom:8px; }
+.rules-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.rules-body li { font-size:13px; color:#94a3b8; display:flex; align-items:flex-start; gap:8px; }
+.rules-body li::before { content:'→'; color:#f59e0b; flex-shrink:0; margin-top:1px; }
+
+/* ── Method badges ── */
+.method-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.method-badge {
+  padding:3px 10px; border-radius:6px; font-size:11px; font-weight:800;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.5px;
+}
+.m-get    { background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.4); color:#10b981; }
+.m-post   { background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.4); color:#60a5fa; }
+.m-put    { background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.4); color:#fcd34d; }
+.m-delete { background:rgba(239,68,68,.15);  border:1px solid rgba(239,68,68,.4);  color:#f87171; }
+
+/* ── Question cards ── */
+.q-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:18px; margin-bottom:24px; overflow:hidden; transition:border-color .3s;
+}
+.q-card:hover { border-color:#f97316; }
+.q-header {
+  padding:22px 26px; display:flex; align-items:flex-start; gap:16px;
+  border-bottom:1px solid var(--border);
+}
+.q-badge { display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; }
+.q-num {
+  width:44px; height:44px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-weight:900; font-size:18px; color:#fff;
+}
+.q-num.q1 { background:linear-gradient(135deg,#10b981,#06b6d4); }
+.q-num.q2 { background:linear-gradient(135deg,#3b82f6,#8b5cf6); }
+.q-num.q3 { background:linear-gradient(135deg,#f59e0b,#ef4444); }
+.q-num.q4 { background:linear-gradient(135deg,#ec4899,#f97316); }
+.q-num.q5 { background:linear-gradient(135deg,#8b5cf6,#06b6d4); }
+.q-num.qb { background:linear-gradient(135deg,#a855f7,#ec4899); }
+
+.difficulty {
+  font-size:9px; font-weight:700; letter-spacing:1px;
+  padding:2px 8px; border-radius:10px; text-transform:uppercase;
+}
+.diff-easy   { background:rgba(16,185,129,.15); color:#10b981; border:1px solid rgba(16,185,129,.3); }
+.diff-medium { background:rgba(245,158,11,.15); color:#f59e0b; border:1px solid rgba(245,158,11,.3); }
+.diff-hard   { background:rgba(239,68,68,.15);  color:#ef4444; border:1px solid rgba(239,68,68,.3);  }
+.diff-bonus  { background:rgba(139,92,246,.15); color:#8b5cf6; border:1px solid rgba(139,92,246,.3); }
+
+.q-title-wrap { flex:1; }
+.q-title { font-size:17px; font-weight:800; color:#fff; margin-bottom:4px; }
+.q-scenario {
+  font-size:13px; color:#94a3b8; line-height:1.6;
+  background:rgba(249,115,22,.05); border:1px solid rgba(249,115,22,.15);
+  border-radius:8px; padding:10px 14px; margin-top:10px; font-style:italic;
+}
+.q-scenario strong { color:#fdba74; font-style:normal; }
+
+.q-body { padding:22px 26px; }
+.task-label {
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:var(--dim); margin-bottom:10px;
+}
+.task-list { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+.task-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:10px 14px; border-radius:10px;
+  background:var(--surface2); border:1px solid var(--border);
+  font-size:13px; line-height:1.6;
+}
+.task-item .t-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+.task-item p { color:var(--text); }
+.task-item code {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  background:#0d1117; border:1px solid var(--border);
+  padding:1px 6px; border-radius:4px; color:#38bdf8;
+}
+
+/* ── Hint ── */
+.hint-toggle {
+  display:flex; align-items:center; gap:8px; cursor:pointer;
+  padding:8px 14px; border-radius:8px; width:fit-content;
+  background:rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.2);
+  color:#c4b5fd; font-size:12px; font-weight:600;
+  transition:background .2s; user-select:none;
+}
+.hint-toggle:hover { background:rgba(139,92,246,.15); }
+.hint-box {
+  display:none; margin-top:12px;
+  background:#0d1117; border:1px solid rgba(139,92,246,.25);
+  border-radius:10px; overflow:hidden;
+}
+.hint-box.open { display:block; }
+.hint-header {
+  padding:8px 16px; background:rgba(139,92,246,.1);
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:#c4b5fd; border-bottom:1px solid rgba(139,92,246,.2);
+}
+.hint-code {
+  padding:16px; font-family:'JetBrains Mono',monospace;
+  font-size:12px; line-height:1.9; color:#e2e8f0; overflow-x:auto;
+}
+.kw  { color:#ff7b72; }
+.fn  { color:#d2a8ff; }
+.str { color:#a5d6ff; }
+.cm  { color:#8b949e; font-style:italic; }
+.dec { color:#79c0ff; }
+.num { color:#f2cc60; }
+.bi  { color:#ffa657; }
+
+/* ── Expected output ── */
+.expected {
+  margin-top:14px; background:#0d1117;
+  border:1px solid rgba(16,185,129,.2); border-radius:10px; overflow:hidden;
+}
+.expected-header {
+  padding:7px 16px; background:rgba(16,185,129,.08);
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:#10b981; border-bottom:1px solid rgba(16,185,129,.2);
+}
+.expected-code {
+  padding:14px 16px; font-family:'JetBrains Mono',monospace;
+  font-size:12px; line-height:1.9; color:#e2e8f0;
+}
+.j-key  { color:#93c5fd; }
+.j-str  { color:#86efac; }
+.j-num  { color:#fcd34d; }
+.j-bool { color:#34d399; }
+.j-brace{ color:#94a3b8; }
+
+/* ── Test URLs ── */
+.test-urls { margin-top:14px; display:flex; flex-direction:column; gap:6px; }
+.test-url {
+  display:flex; align-items:center; gap:10px;
+  padding:8px 14px; border-radius:8px;
+  background:var(--surface2); border:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace; font-size:12px; flex-wrap:wrap;
+}
+.get-badge  { padding:2px 8px; border-radius:5px; font-size:10px; font-weight:800; flex-shrink:0; background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.4); color:#10b981; }
+.post-badge { padding:2px 8px; border-radius:5px; font-size:10px; font-weight:800; flex-shrink:0; background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.4); color:#60a5fa; }
+.put-badge  { padding:2px 8px; border-radius:5px; font-size:10px; font-weight:800; flex-shrink:0; background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.4); color:#fcd34d; }
+.del-badge  { padding:2px 8px; border-radius:5px; font-size:10px; font-weight:800; flex-shrink:0; background:rgba(239,68,68,.15);  border:1px solid rgba(239,68,68,.4);  color:#f87171; }
+.url-text { color:#38bdf8; flex:1; }
+.url-note { font-size:11px; color:var(--dim); font-family:'Inter',sans-serif; }
+
+/* ── Status pills ── */
+.status-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.status-pill {
+  padding:4px 12px; border-radius:8px; font-size:11px; font-weight:700;
+  font-family:'JetBrains Mono',monospace;
+}
+.s-200 { background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.3); color:#6ee7b7; }
+.s-201 { background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.3); color:#93c5fd; }
+.s-400 { background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.3); color:#fcd34d; }
+.s-404 { background:rgba(239,68,68,.12);  border:1px solid rgba(239,68,68,.3);  color:#fca5a5; }
+
+/* ── Submit ── */
+.submit-box {
+  background:linear-gradient(135deg,rgba(249,115,22,.05),rgba(245,158,11,.05));
+  border:1px solid rgba(249,115,22,.25); border-radius:16px;
+  padding:24px 28px; margin-top:36px;
+}
+.submit-box h3 { font-size:17px; font-weight:800; color:#fff; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+.submit-list { display:flex; flex-direction:column; gap:8px; }
+.submit-item {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 16px; border-radius:10px;
+  background:rgba(255,255,255,.03); border:1px solid var(--border);
+  font-size:13px; cursor:pointer; transition:all .2s;
+}
+.submit-item:hover { border-color:var(--orange); }
+.submit-item.checked { background:rgba(249,115,22,.06); border-color:rgba(249,115,22,.3); }
+.s-box {
+  width:20px; height:20px; border-radius:5px;
+  border:2px solid var(--border); display:flex; align-items:center; justify-content:center;
+  font-size:12px; flex-shrink:0; transition:all .2s;
+}
+.submit-item.checked .s-box { background:var(--orange); border-color:var(--orange); color:#fff; }
+.submit-item.checked span { text-decoration:line-through; color:var(--dim); }
+
+/* ── Footer ── */
+.footer {
+  text-align:center; margin-top:48px; padding:24px;
+  border-top:1px solid var(--border); color:var(--dim); font-size:13px;
+}
+.footer strong { color:var(--orange); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-tag">📝 ASSIGNMENT 3</div>
+    <h1>FastAPI — Day 4</h1>
+    <p class="header-desc">Complete all 5 tasks using the <strong style="color:#fdba74">main_day4.py</strong> file from today's session. Add, update, delete — and test every change in Swagger.</p>
+    <div class="header-pills">
+      <div class="pill blue">⏱ 50–65 min</div>
+      <div class="pill green">5 Questions</div>
+      <div class="pill orange">🛠 CRUD APIs</div>
+      <div class="pill yellow">POST · PUT · DELETE</div>
+      <div class="pill purple">⭐ 1 Bonus</div>
+    </div>
+  </div>
+
+  <!-- Rules -->
+  <div class="rules-box">
+    <div class="rules-icon">📌</div>
+    <div class="rules-body">
+      <h3>Rules & Instructions</h3>
+      <ul>
+        <li>Use the <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">main_day4.py</code> file from today — rename it to <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">main.py</code> and run with <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">uvicorn main:app --reload</code></li>
+        <li>All new code goes in the same file — keep all existing endpoints, only add below</li>
+        <li>Test every endpoint in Swagger UI at <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">http://127.0.0.1:8000/docs</code></li>
+        <li>After every write operation (POST / PUT / DELETE), call <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">GET /products</code> to confirm the change</li>
+        <li>Any new fixed route (e.g. <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">/products/audit</code>) must go ABOVE <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">GET /products/{product_id}</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── Q1 ── -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge">
+        <div class="q-num q1">1</div>
+        <span class="difficulty diff-easy">Easy</span>
+      </div>
+      <div class="q-title-wrap">
+        <div class="q-title">Add 2 New Products Using POST</div>
+        <div class="method-row">
+          <span class="method-badge m-post">POST</span>
+          <span class="method-badge m-get">GET</span>
+        </div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The store is expanding its catalogue. Add two new products — a <strong>Laptop Stand</strong> (₹1299, Electronics) and a <strong>Sticky Notes</strong> pack (₹49, Stationery) — using the <code style="font-family:'JetBrains Mono';font-size:11px;color:#fdba74">POST /products</code> endpoint already built in today's code. Do not touch the products list in the file.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="t-icon">➕</span>
+          <p>In Swagger, use <code>POST /products</code> to add <strong>Laptop Stand</strong>: price 1299, category Electronics, in_stock true</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">➕</span>
+          <p>Add a second product — <strong>Sticky Notes</strong>: price 49, category Stationery, in_stock true</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">🔍</span>
+          <p>Call <code>GET /products</code> after each add — confirm <code>total</code> goes from 4 → 5 → 6 and IDs are auto-generated correctly</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">⚠️</span>
+          <p>Try adding "Wireless Mouse" again — it must return <code>400 Bad Request</code> with the duplicate error message</p>
+        </div>
+      </div>
+      <div class="status-row">
+        <span class="status-pill s-201">201 Created ← on success</span>
+        <span class="status-pill s-400">400 Bad Request ← on duplicate name</span>
+      </div>
+      <div class="expected">
+        <div class="expected-header">Expected Response — POST /products (Laptop Stand)</div>
+        <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"message"</span>: <span class="j-str">"Product added"</span>,
+  <span class="j-key">"product"</span>: <span class="j-brace">{</span>
+    <span class="j-key">"id"</span>: <span class="j-num">5</span>,
+    <span class="j-key">"name"</span>: <span class="j-str">"Laptop Stand"</span>,
+    <span class="j-key">"price"</span>: <span class="j-num">1299</span>,
+    <span class="j-key">"category"</span>: <span class="j-str">"Electronics"</span>,
+    <span class="j-key">"in_stock"</span>: <span class="j-bool">true</span>
+  <span class="j-brace">}</span>
+<span class="j-brace">}</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h1')">💡 Show Hint</div>
+        <div class="hint-box" id="h1">
+          <div class="hint-header">Hint — Request body to send in Swagger</div>
+          <div class="hint-code"><span class="cm">/* In Swagger → POST /products → Try it out → paste this body */</span>
+
+<span class="cm">/* Product 1 */</span>
+{
+  <span class="str">"name"</span>:     <span class="str">"Laptop Stand"</span>,
+  <span class="str">"price"</span>:    <span class="num">1299</span>,
+  <span class="str">"category"</span>: <span class="str">"Electronics"</span>,
+  <span class="str">"in_stock"</span>: <span class="kw">true</span>
+}
+
+<span class="cm">/* Product 2 */</span>
+{
+  <span class="str">"name"</span>:     <span class="str">"Sticky Notes"</span>,
+  <span class="str">"price"</span>:    <span class="num">49</span>,
+  <span class="str">"category"</span>: <span class="str">"Stationery"</span>,
+  <span class="str">"in_stock"</span>: <span class="kw">true</span>
+}
+
+<span class="cm">/* The in_stock field has a default of True in NewProduct model,</span>
+<span class="cm">   so you can also omit it and it will still be True. */</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Q2 ── -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge">
+        <div class="q-num q2">2</div>
+        <span class="difficulty diff-easy">Easy</span>
+      </div>
+      <div class="q-title-wrap">
+        <div class="q-title">Restock the USB Hub Using PUT</div>
+        <div class="method-row">
+          <span class="method-badge m-put">PUT</span>
+          <span class="method-badge m-get">GET</span>
+        </div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The USB Hub (ID 3) has been out of stock since Day 1. The warehouse just received a new shipment. Use <code style="font-family:'JetBrains Mono';font-size:11px;color:#fdba74">PUT /products/{product_id}</code> to flip it back to in stock, and also drop its price from ₹799 to ₹699 for a restock offer.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="t-icon">🔧</span>
+          <p>Call <code>PUT /products/3?in_stock=true</code> — USB Hub must show <code>in_stock: true</code> in the response</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">💰</span>
+          <p>Call <code>PUT /products/3?price=699</code> — price must update to 699</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">⚡</span>
+          <p>Now do both at once in a single call: <code>PUT /products/3?in_stock=true&price=649</code> — both fields must update together</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">✅</span>
+          <p>Call <code>GET /products/3</code> after the last update — confirm both values are correct</p>
+        </div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These in Order</div>
+        <div class="test-url"><span class="put-badge">PUT</span><span class="url-text">/products/3?in_stock=true</span><span class="url-note">→ in_stock flips to true</span></div>
+        <div class="test-url"><span class="put-badge">PUT</span><span class="url-text">/products/3?price=699</span><span class="url-note">→ price becomes 699</span></div>
+        <div class="test-url"><span class="put-badge">PUT</span><span class="url-text">/products/3?in_stock=true&price=649</span><span class="url-note">→ both updated at once</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/3</span><span class="url-note">→ confirm price=649, in_stock=true</span></div>
+        <div class="test-url"><span class="put-badge">PUT</span><span class="url-text">/products/99?price=100</span><span class="url-note">→ 404 Not Found</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h2')">💡 Show Hint</div>
+        <div class="hint-box" id="h2">
+          <div class="hint-header">Hint — Why we use  if in_stock is not None  and not  if in_stock</div>
+          <div class="hint-code"><span class="cm"># if in_stock:         ← WRONG — skips when value is False</span>
+<span class="cm"># if in_stock is not None: ← CORRECT — only skips when NOT sent</span>
+<span class="cm">#</span>
+<span class="cm"># False is a valid value we want to save.</span>
+<span class="cm"># "if in_stock:" treats False the same as None — both get skipped.</span>
+<span class="cm"># "if in_stock is not None:" only skips when the param wasn't sent at all.</span>
+
+<span class="cm"># This is already written in update_product() — just use the endpoint as-is.</span>
+<span class="cm"># No code changes needed for this question.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Q3 ── -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge">
+        <div class="q-num q3">3</div>
+        <span class="difficulty diff-easy">Easy</span>
+      </div>
+      <div class="q-title-wrap">
+        <div class="q-title">Delete a Product and Handle Missing IDs</div>
+        <div class="method-row">
+          <span class="method-badge m-delete">DELETE</span>
+          <span class="method-badge m-get">GET</span>
+        </div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The Pen Set (ID 4) has sold out permanently and the supplier is discontinued. Remove it from the catalogue using <code style="font-family:'JetBrains Mono';font-size:11px;color:#fdba74">DELETE /products/{product_id}</code>. Then verify it's gone — and also test what happens when you try to delete it a second time.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="t-icon">🗑️</span>
+          <p>Call <code>DELETE /products/4</code> — response must confirm the product name: <code>"Product 'Pen Set' deleted"</code></p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">🔍</span>
+          <p>Call <code>GET /products</code> — total must drop from 4 to 3, Pen Set must not appear anywhere</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">⚠️</span>
+          <p>Call <code>DELETE /products/4</code> again — must return <code>404 Not Found</code> with <code>{"error": "Product not found"}</code></p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">⚠️</span>
+          <p>Call <code>DELETE /products/99</code> — also 404, product ID that was never in the list</p>
+        </div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These in Order</div>
+        <div class="test-url"><span class="del-badge">DEL</span><span class="url-text">/products/4</span><span class="url-note">→ "Product 'Pen Set' deleted"</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products</span><span class="url-note">→ total is now 3</span></div>
+        <div class="test-url"><span class="del-badge">DEL</span><span class="url-text">/products/4</span><span class="url-note">→ 404 Not Found</span></div>
+        <div class="test-url"><span class="del-badge">DEL</span><span class="url-text">/products/99</span><span class="url-note">→ 404 Not Found</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h3')">💡 Show Hint</div>
+        <div class="hint-box" id="h3">
+          <div class="hint-header">Hint — How delete_product() works in the code</div>
+          <div class="hint-code"><span class="cm"># This is already in main_day4.py — no changes needed.</span>
+<span class="cm"># Just understand each line:</span>
+
+<span class="dec">@app.delete</span>(<span class="str">'/products/{product_id}'</span>)
+<span class="kw">def</span> <span class="fn">delete_product</span>(product_id: <span class="fn">int</span>, response: Response):
+    product = <span class="fn">find_product</span>(product_id)    <span class="cm"># step 1: find it</span>
+    <span class="kw">if not</span> product:                         <span class="cm"># step 2: if None → 404</span>
+        response.status_code = status.HTTP_404_NOT_FOUND
+        <span class="kw">return</span> {<span class="str">'error'</span>: <span class="str">'Product not found'</span>}
+    products.<span class="fn">remove</span>(product)               <span class="cm"># step 3: remove from list</span>
+    <span class="kw">return</span> {<span class="str">'message'</span>: <span class="fn">f</span><span class="str">"Product '{product['name']}' deleted"</span>}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Q4 ── -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge">
+        <div class="q-num q4">4</div>
+        <span class="difficulty diff-medium">Medium</span>
+      </div>
+      <div class="q-title-wrap">
+        <div class="q-title">Full CRUD Sequence — One Complete Workflow</div>
+        <div class="method-row">
+          <span class="method-badge m-post">POST</span>
+          <span class="method-badge m-get">GET</span>
+          <span class="method-badge m-put">PUT</span>
+          <span class="method-badge m-delete">DELETE</span>
+        </div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> You are the backend developer for a new product launch. A "Smart Watch" needs to be added, its price adjusted after a pricing error, and then removed because the launch got cancelled. Perform the complete lifecycle using all 3 CRUD endpoints in sequence.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Complete This Exact Sequence in Swagger</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="t-icon">1️⃣</span>
+          <p><code>POST /products</code> — add Smart Watch: price 3999, category Electronics, in_stock false</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">2️⃣</span>
+          <p><code>GET /products</code> — note the auto-generated ID given to Smart Watch (it will be 5 or 6 depending on Q1)</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">3️⃣</span>
+          <p><code>PUT /products/{id}?price=3499</code> — pricing error, correct it to 3499</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">4️⃣</span>
+          <p><code>GET /products/{id}</code> — confirm price is now 3499</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">5️⃣</span>
+          <p><code>DELETE /products/{id}</code> — launch cancelled, remove it</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">6️⃣</span>
+          <p><code>GET /products</code> — Smart Watch must be completely gone, total back to what it was before step 1</p>
+        </div>
+      </div>
+      <div class="expected">
+        <div class="expected-header">Expected Final State — GET /products (after delete)</div>
+        <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"products"</span>: [ <span class="cm">... Smart Watch NOT here ...</span> ],
+  <span class="j-key">"total"</span>: <span class="j-num">4</span>   <span class="cm">← same as original (or 6 if Q1 was done first)</span>
+<span class="j-brace">}</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h4')">💡 Show Hint</div>
+        <div class="hint-box" id="h4">
+          <div class="hint-header">Hint — Tracking the auto-generated ID</div>
+          <div class="hint-code"><span class="cm"># The ID is auto-generated by this line in add_product():</span>
+next_id = <span class="bi">max</span>(p[<span class="str">'id'</span>] <span class="kw">for</span> p <span class="kw">in</span> products) + <span class="num">1</span>
+
+<span class="cm"># So if products already has IDs 1,2,3,4 → next_id = 5</span>
+<span class="cm"># If Q1 was done first and IDs 5,6 exist → next_id = 7</span>
+<span class="cm">#</span>
+<span class="cm"># After POST, read the "id" field in the response.</span>
+<span class="cm"># Use THAT exact ID for the PUT and DELETE steps.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Q5 ── -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge">
+        <div class="q-num q5">5</div>
+        <span class="difficulty diff-medium">Medium</span>
+      </div>
+      <div class="q-title-wrap">
+        <div class="q-title">Build GET /products/audit — Inventory Summary</div>
+        <div class="method-row">
+          <span class="method-badge m-get">GET</span>
+        </div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The store manager needs a one-screen summary every morning — how many products exist, how many are in stock, which ones are out of stock (by name), what is the total value of all in-stock inventory (price × 10 units each), and which product is the most expensive. Build this as a new endpoint.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="t-icon">🔧</span>
+          <p>Add a new endpoint <code>GET /products/audit</code> to your <code>main.py</code> file — place it <strong>above</strong> <code>GET /products/{product_id}</code></p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">📊</span>
+          <p>Return <code>total_products</code>, <code>in_stock_count</code>, <code>out_of_stock_names</code> (list of names only), <code>total_stock_value</code> (sum of price × 10 for in-stock items only), and <code>most_expensive</code> (name + price)</p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">⚠️</span>
+          <p>Make sure <code>/products/audit</code> is placed ABOVE <code>/products/{product_id}</code> in the file — otherwise FastAPI will treat "audit" as a product ID and return a type error</p>
+        </div>
+      </div>
+      <div class="expected">
+        <div class="expected-header">Expected Output — GET /products/audit (with original 4 products)</div>
+        <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"total_products"</span>:    <span class="j-num">4</span>,
+  <span class="j-key">"in_stock_count"</span>:    <span class="j-num">3</span>,
+  <span class="j-key">"out_of_stock_names"</span>: [<span class="j-str">"USB Hub"</span>],
+  <span class="j-key">"total_stock_value"</span>:  <span class="j-num">6470</span>,  <span class="cm">← (499+99+49) × 10</span>
+  <span class="j-key">"most_expensive"</span>:    <span class="j-brace">{</span> <span class="j-key">"name"</span>: <span class="j-str">"USB Hub"</span>, <span class="j-key">"price"</span>: <span class="j-num">799</span> <span class="j-brace">}</span>
+<span class="j-brace">}</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h5')">💡 Show Hint</div>
+        <div class="hint-box" id="h5">
+          <div class="hint-header">Hint — Full endpoint code</div>
+          <div class="hint-code"><span class="cm"># Add this ABOVE @app.get('/products/{product_id}')</span>
+
+<span class="dec">@app.get</span>(<span class="str">'/products/audit'</span>)
+<span class="kw">def</span> <span class="fn">product_audit</span>():
+    in_stock_list  = [p <span class="kw">for</span> p <span class="kw">in</span> products <span class="kw">if</span>     p[<span class="str">'in_stock'</span>]]
+    out_stock_list = [p <span class="kw">for</span> p <span class="kw">in</span> products <span class="kw">if not</span> p[<span class="str">'in_stock'</span>]]
+    stock_value    = <span class="bi">sum</span>(p[<span class="str">'price'</span>] * <span class="num">10</span> <span class="kw">for</span> p <span class="kw">in</span> in_stock_list)
+    priciest       = <span class="bi">max</span>(products, key=<span class="kw">lambda</span> p: p[<span class="str">'price'</span>])
+    <span class="kw">return</span> {
+        <span class="str">'total_products'</span>:    <span class="bi">len</span>(products),
+        <span class="str">'in_stock_count'</span>:    <span class="bi">len</span>(in_stock_list),
+        <span class="str">'out_of_stock_names'</span>: [p[<span class="str">'name'</span>] <span class="kw">for</span> p <span class="kw">in</span> out_stock_list],
+        <span class="str">'total_stock_value'</span>:  stock_value,
+        <span class="str">'most_expensive'</span>:    {<span class="str">'name'</span>: priciest[<span class="str">'name'</span>], <span class="str">'price'</span>: priciest[<span class="str">'price'</span>]},
+    }</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BONUS ── -->
+  <div class="q-card" style="border-color:rgba(168,85,247,.4);background:linear-gradient(135deg,rgba(168,85,247,.04),rgba(236,72,153,.04));">
+    <div class="q-header" style="border-bottom-color:rgba(168,85,247,.2);">
+      <div class="q-badge">
+        <div class="q-num qb">⭐</div>
+        <span class="difficulty diff-bonus">Bonus</span>
+      </div>
+      <div class="q-title-wrap">
+        <div class="q-title">Apply a Category-Wide Discount</div>
+        <div class="method-row">
+          <span class="method-badge m-put">PUT</span>
+        </div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> It's a sale. All Electronics products should get a 10% price cut in one go — not one by one. Build <code style="font-family:'JetBrains Mono';font-size:11px;color:#fdba74">PUT /products/discount</code> that takes a category name and a discount percentage and updates every product in that category at once.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item">
+          <span class="t-icon">🔧</span>
+          <p>Add <code>PUT /products/discount</code> with query params: <code>category</code> (str, required) and <code>discount_percent</code> (int, required, 1–99). Place it above <code>/products/{product_id}</code></p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">💸</span>
+          <p>Loop through all products, find ones matching the category, apply: <code>new_price = int(price × (1 - discount_percent / 100))</code></p>
+        </div>
+        <div class="task-item">
+          <span class="t-icon">📊</span>
+          <p>Return how many products were updated and show their new prices. If no products found in that category, return a friendly message</p>
+        </div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These</div>
+        <div class="test-url"><span class="put-badge">PUT</span><span class="url-text">/products/discount?category=Electronics&discount_percent=10</span><span class="url-note">→ all Electronics get 10% off</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products</span><span class="url-note">→ Electronics prices are reduced</span></div>
+        <div class="test-url"><span class="put-badge">PUT</span><span class="url-text">/products/discount?category=Furniture&discount_percent=20</span><span class="url-note">→ no products found message</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('hb')">💡 Show Hint</div>
+        <div class="hint-box" id="hb">
+          <div class="hint-header">Hint — Add above /products/{product_id}</div>
+          <div class="hint-code"><span class="dec">@app.put</span>(<span class="str">'/products/discount'</span>)
+<span class="kw">def</span> <span class="fn">bulk_discount</span>(
+    category:         <span class="fn">str</span> = Query(..., description=<span class="str">'Category to discount'</span>),
+    discount_percent: <span class="fn">int</span> = Query(..., ge=<span class="num">1</span>, le=<span class="num">99</span>, description=<span class="str">'% off'</span>),
+):
+    updated = []
+    <span class="kw">for</span> p <span class="kw">in</span> products:
+        <span class="kw">if</span> p[<span class="str">'category'</span>] == category:
+            p[<span class="str">'price'</span>] = <span class="fn">int</span>(p[<span class="str">'price'</span>] * (<span class="num">1</span> - discount_percent / <span class="num">100</span>))
+            updated.<span class="fn">append</span>(p)
+    <span class="kw">if not</span> updated:
+        <span class="kw">return</span> {<span class="str">'message'</span>: <span class="fn">f</span><span class="str">'No products found in category: {category}'</span>}
+    <span class="kw">return</span> {
+        <span class="str">'message'</span>:          <span class="fn">f</span><span class="str">'{discount_percent}% discount applied to {category}'</span>,
+        <span class="str">'updated_count'</span>:    <span class="fn">len</span>(updated),
+        <span class="str">'updated_products'</span>: updated,
+    }</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submission Checklist -->
+  <div class="submit-box">
+    <h3>✅ Submission Checklist</h3>
+    <div class="submit-list">
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q1 — POST /products added Laptop Stand with ID 5 and status 201</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q1 — POST /products added Sticky Notes with ID 6 and status 201</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q1 — POST /products with "Wireless Mouse" returns 400 duplicate error</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q2 — PUT /products/3?in_stock=true restocks USB Hub correctly</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q2 — PUT /products/3?in_stock=true&price=649 updates both fields in one call</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q2 — PUT /products/99?price=100 returns 404 Not Found</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q3 — DELETE /products/4 removes Pen Set and confirms name in message</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q3 — DELETE /products/4 again returns 404 Not Found</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q4 — Full 6-step CRUD lifecycle for Smart Watch completed correctly</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q5 — GET /products/audit returns correct counts, stock value, and most expensive product</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q5 — /products/audit is placed ABOVE /products/{product_id} in the file</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>⭐ Bonus — PUT /products/discount?category=Electronics&discount_percent=10 reduces all Electronics prices</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Built for <strong>FastAPI Internship Training</strong> · Assignment 3 — Day 4 · Good luck! 🚀
+  </div>
+
+</div>
+<script>
+function toggleHint(id) {
+  const box = document.getElementById(id);
+  box.classList.toggle('open');
+  const btn = box.previousElementSibling;
+  btn.textContent = box.classList.contains('open') ? '🙈 Hide Hint' : '💡 Show Hint';
+}
+function toggleCheck(item) {
+  item.classList.toggle('checked');
+  const box = item.querySelector('.s-box');
+  box.textContent = item.classList.contains('checked') ? '✓' : '';
+}
+</script>
+</body>
+</html>
