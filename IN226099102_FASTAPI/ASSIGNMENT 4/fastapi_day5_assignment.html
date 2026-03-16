@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FastAPI — Day 5 Assignment</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--surface2:#1f2937;--border:#2d3748;--text:#e2e8f0;--dim:#64748b;--green:#10b981;--blue:#3b82f6;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--cyan:#06b6d4;--teal:#14b8a6;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:40px 24px 80px;}
+.page{max-width:820px;margin:0 auto;}
+.header{text-align:center;padding:48px 32px;background:linear-gradient(135deg,#0f172a,#001a15,#0f172a);border-radius:20px;margin-bottom:36px;border:1px solid #2d3748;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-60%;right:-10%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(20,184,166,.07),transparent 70%);}
+.header-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.3);color:#99f6e4;margin-bottom:18px;letter-spacing:1px;}
+.header h1{font-size:clamp(26px,4vw,42px);font-weight:900;line-height:1.2;background:linear-gradient(135deg,#fff,#99f6e4,#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.header-desc{color:#94a3b8;font-size:15px;max-width:500px;margin:0 auto 20px;}
+.header-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;border:1px solid;}
+.pill.blue{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:#93c5fd;}
+.pill.green{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#6ee7b7;}
+.pill.yellow{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d;}
+.pill.teal{background:rgba(20,184,166,.1);border-color:rgba(20,184,166,.3);color:#99f6e4;}
+.rules-box{background:rgba(20,184,166,.06);border:1px solid rgba(20,184,166,.25);border-radius:14px;padding:20px 24px;margin-bottom:32px;display:flex;gap:14px;}
+.rules-icon{font-size:24px;flex-shrink:0;}
+.rules-body h3{font-size:15px;font-weight:700;color:#99f6e4;margin-bottom:8px;}
+.rules-body ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.rules-body li{font-size:13px;color:#94a3b8;display:flex;align-items:flex-start;gap:8px;}
+.rules-body li::before{content:'→';color:var(--teal);flex-shrink:0;margin-top:1px;}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;margin-bottom:24px;overflow:hidden;transition:border-color .3s;}
+.q-card:hover{border-color:var(--teal);}
+.q-header{padding:22px 26px;display:flex;align-items:flex-start;gap:16px;border-bottom:1px solid var(--border);}
+.q-badge{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;}
+.q-num{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:900;font-size:18px;color:#fff;}
+.q-num.q1{background:linear-gradient(135deg,#10b981,#06b6d4);}
+.q-num.q2{background:linear-gradient(135deg,#3b82f6,#8b5cf6);}
+.q-num.q3{background:linear-gradient(135deg,#f59e0b,#ef4444);}
+.q-num.q4{background:linear-gradient(135deg,#ec4899,#f97316);}
+.q-num.q5{background:linear-gradient(135deg,#8b5cf6,#06b6d4);}
+.q-num.q6{background:linear-gradient(135deg,#14b8a6,#10b981);}
+.difficulty{font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:10px;text-transform:uppercase;}
+.diff-easy{background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3);}
+.diff-medium{background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3);}
+.diff-hard{background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);}
+.diff-bonus{background:rgba(139,92,246,.15);color:#8b5cf6;border:1px solid rgba(139,92,246,.3);}
+.q-title-wrap{flex:1;}
+.q-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:4px;}
+.q-scenario{font-size:13px;color:#94a3b8;line-height:1.6;background:rgba(20,184,166,.05);border:1px solid rgba(20,184,166,.15);border-radius:8px;padding:10px 14px;margin-top:10px;font-style:italic;}
+.q-scenario strong{color:#99f6e4;font-style:normal;}
+.q-body{padding:22px 26px;}
+.task-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.task-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:13px;line-height:1.6;}
+.task-item .t-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.task-item p{color:var(--text);}
+.task-item code{font-family:'JetBrains Mono',monospace;font-size:11px;background:#0d1117;border:1px solid var(--border);padding:1px 6px;border-radius:4px;color:#38bdf8;}
+.hint-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 14px;border-radius:8px;width:fit-content;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;font-size:12px;font-weight:600;transition:background .2s;user-select:none;}
+.hint-toggle:hover{background:rgba(139,92,246,.15);}
+.hint-box{display:none;margin-top:12px;background:#0d1117;border:1px solid rgba(139,92,246,.25);border-radius:10px;overflow:hidden;}
+.hint-box.open{display:block;}
+.hint-header{padding:8px 16px;background:rgba(139,92,246,.1);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c4b5fd;border-bottom:1px solid rgba(139,92,246,.2);}
+.hint-code{padding:16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;color:#e2e8f0;overflow-x:auto;}
+.kw{color:#ff7b72;}.fn{color:#d2a8ff;}.str{color:#a5d6ff;}.cm{color:#8b949e;font-style:italic;}.dec{color:#79c0ff;}.num{color:#f2cc60;}
+.expected{margin-top:14px;background:#0d1117;border:1px solid rgba(16,185,129,.2);border-radius:10px;overflow:hidden;}
+.expected-header{padding:7px 16px;background:rgba(16,185,129,.08);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#10b981;border-bottom:1px solid rgba(16,185,129,.2);}
+.expected-code{padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;color:#e2e8f0;}
+.j-key{color:#93c5fd;}.j-str{color:#86efac;}.j-num{color:#fcd34d;}.j-bool{color:#34d399;}.j-brace{color:#94a3b8;}.j-err{color:#f87171;}
+.test-urls{margin-top:14px;display:flex;flex-direction:column;gap:6px;}
+.test-url{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 14px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:12px;}
+.mb{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800;flex-shrink:0;}
+.m-get{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);color:#10b981;}
+.m-post{background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.4);color:#60a5fa;}
+.m-put{background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:#fcd34d;}
+.m-delete{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#f87171;}
+.url-text{color:#38bdf8;flex:1;}.url-note{font-size:11px;color:var(--dim);font-family:'Inter',sans-serif;}
+.submit-box{background:linear-gradient(135deg,rgba(20,184,166,.06),rgba(59,130,246,.06));border:1px solid rgba(20,184,166,.25);border-radius:16px;padding:24px 28px;margin-top:36px;}
+.submit-box h3{font-size:17px;font-weight:800;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.submit-list{display:flex;flex-direction:column;gap:8px;}
+.submit-item{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);font-size:13px;cursor:pointer;transition:all .2s;}
+.submit-item:hover{border-color:var(--teal);}
+.submit-item.checked{background:rgba(20,184,166,.06);border-color:rgba(20,184,166,.3);}
+.s-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;transition:all .2s;}
+.submit-item.checked .s-box{background:var(--teal);border-color:var(--teal);color:#fff;}
+.submit-item.checked span{text-decoration:line-through;color:var(--dim);}
+.footer{text-align:center;margin-top:48px;padding:24px;border-top:1px solid var(--border);color:var(--dim);font-size:13px;}
+.footer strong{color:var(--cyan);}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-tag">📝 ASSIGNMENT 4</div>
+  <h1>FastAPI — Day 5<br>Cart System Practice</h1>
+  <p class="header-desc">Practice the full shopping cart flow — add, view, remove, and checkout. Connect multiple endpoints as one system.</p>
+  <div class="header-pills">
+    <div class="pill blue">⏱ 60–75 min</div>
+    <div class="pill green">6 Questions</div>
+    <div class="pill yellow">🛠 Hands-On</div>
+    <div class="pill teal">⭐ 1 Bonus</div>
+  </div>
+</div>
+
+<div class="rules-box">
+  <div class="rules-icon">📌</div>
+  <div class="rules-body">
+    <h3>Rules &amp; Instructions</h3>
+    <ul>
+      <li>All tasks use the same <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">main.py</code> from the Day 5 session — cart endpoints must already exist</li>
+      <li>The cart resets every time you restart the server — that is expected and normal</li>
+      <li>Do questions in order — each one builds on the previous cart state</li>
+      <li>Test in Swagger UI at <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">http://127.0.0.1:8000/docs</code></li>
+      <li>Take a screenshot for each question showing the full request and response</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Q1 -->
+<div class="q-card">
+  <div class="q-header">
+    <div class="q-badge"><div class="q-num q1">1</div><span class="difficulty diff-easy">Easy</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">Add Items to the Cart</div>
+      <div class="q-scenario"><strong>Scenario:</strong> A customer visits the store and wants to buy a Wireless Mouse (qty 2) and a Notebook (qty 1). Add both items to the cart using <code>POST /cart/add</code>.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Your Tasks</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">🛒</span><p>Add Wireless Mouse (product_id=1, quantity=2) to the cart</p></div>
+      <div class="task-item"><span class="t-icon">🛒</span><p>Add Notebook (product_id=2, quantity=1) to the cart</p></div>
+      <div class="task-item"><span class="t-icon">✅</span><p>Each response must say <code>"Added to cart"</code> with the correct subtotal</p></div>
+      <div class="task-item"><span class="t-icon">📊</span><p>Wireless Mouse subtotal = ₹499 × 2 = ₹998. Notebook subtotal = ₹99</p></div>
+    </div>
+    <div class="test-urls">
+      <div class="task-label" style="margin-bottom:6px">Endpoints to Use</div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/add?product_id=1&amp;quantity=2</span><span class="url-note">→ subtotal: 998</span></div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/add?product_id=2&amp;quantity=1</span><span class="url-note">→ subtotal: 99</span></div>
+    </div>
+    <div class="expected">
+      <div class="expected-header">Expected Response — Adding Wireless Mouse</div>
+      <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"message"</span>: <span class="j-str">"Added to cart"</span>,
+  <span class="j-key">"cart_item"</span>: <span class="j-brace">{</span>
+    <span class="j-key">"product_id"</span>: <span class="j-num">1</span>, <span class="j-key">"product_name"</span>: <span class="j-str">"Wireless Mouse"</span>,
+    <span class="j-key">"quantity"</span>: <span class="j-num">2</span>, <span class="j-key">"unit_price"</span>: <span class="j-num">499</span>, <span class="j-key">"subtotal"</span>: <span class="j-num">998</span>
+  <span class="j-brace">}</span>
+<span class="j-brace">}</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('h1')">💡 Show Hint</div>
+      <div class="hint-box" id="h1">
+        <div class="hint-header">Hint — How to pass query params in Swagger</div>
+        <div class="hint-code"><span class="cm"># Swagger → POST /cart/add → Try it out</span>
+<span class="cm"># product_id field → type:  1</span>
+<span class="cm"># quantity field   → type:  2</span>
+<span class="cm"># Click Execute</span>
+<span class="cm"># Then do it again for product_id=2, quantity=1</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="q-card">
+  <div class="q-header">
+    <div class="q-badge"><div class="q-num q2">2</div><span class="difficulty diff-easy">Easy</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">View the Cart and Verify the Total</div>
+      <div class="q-scenario"><strong>Scenario:</strong> The customer wants to review what's in their cart before buying. Use <code>GET /cart</code> and confirm the grand total matches your manual calculation.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Your Tasks</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">👀</span><p>Use <code>GET /cart</code> — confirm 2 items are in the cart</p></div>
+      <div class="task-item"><span class="t-icon">🧮</span><p>Calculate manually: ₹998 (mouse) + ₹99 (notebook) = ₹1,097</p></div>
+      <div class="task-item"><span class="t-icon">✅</span><p>Confirm <code>grand_total</code> in the response is exactly <code>1097</code></p></div>
+      <div class="task-item"><span class="t-icon">📊</span><p>Confirm <code>item_count</code> is <code>2</code> (two unique products, not total quantity)</p></div>
+    </div>
+    <div class="test-urls">
+      <div class="task-label" style="margin-bottom:6px">Endpoint</div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/cart</span><span class="url-note">→ 2 items, grand_total: 1097</span></div>
+    </div>
+    <div class="expected">
+      <div class="expected-header">Expected Response — GET /cart</div>
+      <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"items"</span>: [ <span class="cm">... Wireless Mouse + Notebook ...</span> ],
+  <span class="j-key">"item_count"</span>: <span class="j-num">2</span>,
+  <span class="j-key">"grand_total"</span>: <span class="j-num">1097</span>
+<span class="j-brace">}</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('h2')">💡 Show Hint</div>
+      <div class="hint-box" id="h2">
+        <div class="hint-header">Hint — grand_total calculation</div>
+        <div class="hint-code"><span class="cm"># grand_total = sum of all item subtotals</span>
+<span class="cm"># Wireless Mouse: 499 × 2 = 998</span>
+<span class="cm"># Notebook:        99 × 1 =  99</span>
+<span class="cm"># grand_total         = 1097 ✅</span>
+
+<span class="cm"># item_count = number of unique products (2), not total qty (3)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="q-card">
+  <div class="q-header">
+    <div class="q-badge"><div class="q-num q3">3</div><span class="difficulty diff-easy">Easy</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">Try Adding an Out-of-Stock Product</div>
+      <div class="q-scenario"><strong>Scenario:</strong> The customer sees the USB Hub on the website and tries to add it to the cart. But the USB Hub (id=3) is out of stock. Your API must reject it with the correct error.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Your Tasks</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">🧪</span><p>Try <code>POST /cart/add?product_id=3</code> — USB Hub is out of stock</p></div>
+      <div class="task-item"><span class="t-icon">❌</span><p>Must return <code>400 Bad Request</code> with an out-of-stock error message</p></div>
+      <div class="task-item"><span class="t-icon">✅</span><p><code>GET /cart</code> after — USB Hub must NOT be in the cart. Cart still has 2 items.</p></div>
+      <div class="task-item"><span class="t-icon">🧪</span><p>Also try <code>POST /cart/add?product_id=99</code> — must return <code>404 Not Found</code></p></div>
+    </div>
+    <div class="test-urls">
+      <div class="task-label" style="margin-bottom:6px">Test These Error Cases</div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/add?product_id=3</span><span class="url-note">→ 400 Bad Request — out of stock</span></div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/add?product_id=99</span><span class="url-note">→ 404 Not Found</span></div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/cart</span><span class="url-note">→ still 2 items only, total still 1097</span></div>
+    </div>
+    <div class="expected">
+      <div class="expected-header">Expected Error — 400 Bad Request</div>
+      <div class="expected-code"><span class="j-brace">{</span> <span class="j-key">"detail"</span>: <span class="j-err">"USB Hub is out of stock"</span> <span class="j-brace">}</span>
+<span class="cm">// Status line: 400  Bad Request</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('h3')">💡 Show Hint</div>
+      <div class="hint-box" id="h3">
+        <div class="hint-header">Hint — Out-of-stock check in add_to_cart()</div>
+        <div class="hint-code"><span class="cm"># This check should already be in your add_to_cart() function:</span>
+<span class="kw">if not</span> product[<span class="str">"in_stock"</span>]:
+    <span class="kw">raise</span> <span class="fn">HTTPException</span>(
+        status_code=<span class="num">400</span>,
+        detail=<span class="str">f"{product['name']} is out of stock"</span>
+    )
+<span class="cm"># 400 = Bad Request — the product exists but can't be ordered</span>
+<span class="cm"># 404 = Not Found — the product_id doesn't exist at all</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="q-card">
+  <div class="q-header">
+    <div class="q-badge"><div class="q-num q4">4</div><span class="difficulty diff-medium">Medium</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">Add More Quantity of an Existing Cart Item</div>
+      <div class="q-scenario"><strong>Scenario:</strong> The customer decides they want one more Wireless Mouse. When you add the same product again, the cart should update the quantity — not create a duplicate entry.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Your Tasks</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">➕</span><p>Add Wireless Mouse (product_id=1) again with quantity=1 more</p></div>
+      <div class="task-item"><span class="t-icon">✅</span><p>Response must say <code>"Cart updated"</code> — NOT <code>"Added to cart"</code></p></div>
+      <div class="task-item"><span class="t-icon">🔢</span><p>Wireless Mouse quantity must now be <code>3</code>, subtotal must be <code>1497</code> (₹499 × 3)</p></div>
+      <div class="task-item"><span class="t-icon">📊</span><p><code>GET /cart</code> — still <code>2</code> unique items (no duplicate). New grand_total = ₹1,596</p></div>
+    </div>
+    <div class="test-urls">
+      <div class="task-label" style="margin-bottom:6px">Test in This Order</div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/add?product_id=1&amp;quantity=1</span><span class="url-note">→ "Cart updated", qty now 3</span></div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/cart</span><span class="url-note">→ item_count: 2, grand_total: 1596</span></div>
+    </div>
+    <div class="expected">
+      <div class="expected-header">Expected — Cart Updated Response</div>
+      <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"message"</span>: <span class="j-str">"Cart updated"</span>,
+  <span class="j-key">"cart_item"</span>: <span class="j-brace">{</span> <span class="j-key">"quantity"</span>: <span class="j-num">3</span>, <span class="j-key">"subtotal"</span>: <span class="j-num">1497</span>, ... <span class="j-brace">}</span>
+<span class="j-brace">}</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('h4')">💡 Show Hint</div>
+      <div class="hint-box" id="h4">
+        <div class="hint-header">Hint — The duplicate-check logic in add_to_cart()</div>
+        <div class="hint-code"><span class="cm"># This loop in add_to_cart() handles duplicate products:</span>
+<span class="kw">for</span> item <span class="kw">in</span> cart:
+    <span class="kw">if</span> item[<span class="str">"product_id"</span>] == product_id:
+        item[<span class="str">"quantity"</span>] += quantity      <span class="cm"># add to existing qty</span>
+        item[<span class="str">"subtotal"</span>]  = <span class="fn">calculate_total</span>(product, item[<span class="str">"quantity"</span>])
+        <span class="kw">return</span> {<span class="str">"message"</span>: <span class="str">"Cart updated"</span>, <span class="str">"cart_item"</span>: item}
+
+<span class="cm"># If product NOT already in cart → falls through to the append below</span>
+<span class="cm"># grand_total check: 1497 (mouse) + 99 (notebook) = 1596 ✅</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q5 -->
+<div class="q-card">
+  <div class="q-header">
+    <div class="q-badge"><div class="q-num q5">5</div><span class="difficulty diff-medium">Medium</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">Remove an Item Then Checkout</div>
+      <div class="q-scenario"><strong>Scenario:</strong> The customer changed their mind about the Notebook. They remove it from the cart, then proceed to checkout with only the Wireless Mouse. Run the full remove + checkout flow.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Do All Steps in Order</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">🗑️</span><p>Remove Notebook from cart — <code>DELETE /cart/2</code></p></div>
+      <div class="task-item"><span class="t-icon">👀</span><p><code>GET /cart</code> — confirm only Wireless Mouse remains, grand_total = ₹1,497</p></div>
+      <div class="task-item"><span class="t-icon">💳</span><p>Checkout — <code>POST /cart/checkout</code> with your name and a delivery address</p></div>
+      <div class="task-item"><span class="t-icon">✅</span><p>Response must show <code>orders_placed</code> with 1 order and <code>grand_total: 1497</code></p></div>
+      <div class="task-item"><span class="t-icon">🛒</span><p><code>GET /cart</code> after checkout — must say <code>"Cart is empty"</code></p></div>
+      <div class="task-item"><span class="t-icon">📋</span><p><code>GET /orders</code> — the checkout order must appear in the orders list</p></div>
+    </div>
+    <div class="test-urls">
+      <div class="task-label" style="margin-bottom:6px">Run in This Exact Order</div>
+      <div class="test-url"><span class="mb m-delete">DELETE</span><span class="url-text">/cart/2</span><span class="url-note">→ Notebook removed</span></div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/cart</span><span class="url-note">→ 1 item, grand_total: 1497</span></div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/checkout</span><span class="url-note">→ body: customer_name + delivery_address</span></div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/cart</span><span class="url-note">→ Cart is empty</span></div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/orders</span><span class="url-note">→ order appears in list</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('h5')">💡 Show Hint</div>
+      <div class="hint-box" id="h5">
+        <div class="hint-header">Hint — Checkout request body</div>
+        <div class="hint-code"><span class="cm">// Swagger → POST /cart/checkout → Try it out → Request body:</span>
+{
+  <span class="str">"customer_name"</span>:    <span class="str">"Ravi Kumar"</span>,
+  <span class="str">"delivery_address"</span>: <span class="str">"123 MG Road, Bangalore 560001"</span>
+}
+<span class="cm">// After checkout: GET /cart → {"message": "Cart is empty"}</span>
+<span class="cm">// GET /orders → order with total_price: 1497 appears</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q6 -->
+<div class="q-card">
+  <div class="q-header">
+    <div class="q-badge"><div class="q-num q6">6</div><span class="difficulty diff-hard">Hard</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">Full Cart System Flow — 2 Customers, 2 Sessions</div>
+      <div class="q-scenario"><strong>Scenario:</strong> Two customers shop one after the other (server restarts between them). Run the complete cart flow twice — each customer adds different items, one removes something before checkout, both checkouts appear in the orders list.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Customer 1 Flow — Run First</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">1️⃣</span><p>Restart server — <code>Ctrl+C</code> then <code>uvicorn main:app --reload</code> — fresh cart</p></div>
+      <div class="task-item"><span class="t-icon">2️⃣</span><p>Add: Wireless Mouse (qty 1) + Pen Set (qty 3) to cart</p></div>
+      <div class="task-item"><span class="t-icon">3️⃣</span><p>Check <code>GET /cart</code> — grand_total must be ₹499 + ₹147 = ₹646</p></div>
+      <div class="task-item"><span class="t-icon">4️⃣</span><p>Checkout as <strong>Customer 1</strong> — address: any 10+ character address</p></div>
+      <div class="task-item"><span class="t-icon">5️⃣</span><p>Confirm cart is empty and 2 orders appear in <code>GET /orders</code> (one per product)</p></div>
+    </div>
+    <div class="task-label" style="margin-top:20px">Customer 2 Flow — Run After</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">6️⃣</span><p>Add: Notebook (qty 2) + Wireless Mouse (qty 1) to cart (no restart — same session)</p></div>
+      <div class="task-item"><span class="t-icon">7️⃣</span><p>Remove Notebook from cart — <code>DELETE /cart/2</code></p></div>
+      <div class="task-item"><span class="t-icon">8️⃣</span><p>Checkout as <strong>Customer 2</strong> — only Wireless Mouse ordered</p></div>
+      <div class="task-item"><span class="t-icon">9️⃣</span><p><code>GET /orders</code> — must now show 3 total orders (2 from Customer 1 + 1 from Customer 2)</p></div>
+    </div>
+    <div class="expected">
+      <div class="expected-header">Expected — GET /orders at the End</div>
+      <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"orders"</span>: [
+    <span class="j-brace">{</span> <span class="j-key">"order_id"</span>: <span class="j-num">1</span>, <span class="j-key">"customer_name"</span>: <span class="j-str">"Customer 1"</span>, <span class="j-key">"product"</span>: <span class="j-str">"Wireless Mouse"</span>, ... <span class="j-brace">}</span>,
+    <span class="j-brace">{</span> <span class="j-key">"order_id"</span>: <span class="j-num">2</span>, <span class="j-key">"customer_name"</span>: <span class="j-str">"Customer 1"</span>, <span class="j-key">"product"</span>: <span class="j-str">"Pen Set"</span>, ...      <span class="j-brace">}</span>,
+    <span class="j-brace">{</span> <span class="j-key">"order_id"</span>: <span class="j-num">3</span>, <span class="j-key">"customer_name"</span>: <span class="j-str">"Customer 2"</span>, <span class="j-key">"product"</span>: <span class="j-str">"Wireless Mouse"</span>, ... <span class="j-brace">}</span>
+  ],
+  <span class="j-key">"total_orders"</span>: <span class="j-num">3</span>
+<span class="j-brace">}</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('h6')">💡 Show Hint</div>
+      <div class="hint-box" id="h6">
+        <div class="hint-header">Hint — Grand total check for Customer 1</div>
+        <div class="hint-code"><span class="cm"># Customer 1 cart before checkout:</span>
+<span class="cm"># Wireless Mouse: 499 × 1 = 499</span>
+<span class="cm"># Pen Set:         49 × 3 = 147</span>
+<span class="cm"># grand_total           = 646 ✅</span>
+
+<span class="cm"># checkout creates 2 orders — one per cart item</span>
+<span class="cm"># order_id increments: 1, 2, 3...</span>
+
+<span class="cm"># Customer 2 adds Notebook then removes it</span>
+<span class="cm"># Only Wireless Mouse remains → 1 order on checkout</span>
+<span class="cm"># Total orders after both checkouts = 3</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="q-card" style="border-color:rgba(139,92,246,.4);background:linear-gradient(135deg,rgba(139,92,246,.04),rgba(20,184,166,.04));">
+  <div class="q-header" style="border-bottom-color:rgba(139,92,246,.2);">
+    <div class="q-badge"><div class="q-num q5">⭐</div><span class="difficulty diff-bonus">Bonus</span></div>
+    <div class="q-title-wrap">
+      <div class="q-title">Checkout with Empty Cart — Handle Gracefully</div>
+      <div class="q-scenario"><strong>Scenario:</strong> A bug in a mobile app sends a checkout request before the user adds any items. Your API must handle this cleanly — reject it with a proper error. Make sure <code>GET /cart</code> before the checkout shows the cart is empty, and the checkout returns the correct error.</div>
+    </div>
+  </div>
+  <div class="q-body">
+    <div class="task-label">Your Tasks</div>
+    <div class="task-list">
+      <div class="task-item"><span class="t-icon">🔄</span><p>Restart the server (or checkout your current cart first so it's empty)</p></div>
+      <div class="task-item"><span class="t-icon">👀</span><p><code>GET /cart</code> — confirm cart is empty (shows "Cart is empty")</p></div>
+      <div class="task-item"><span class="t-icon">🧪</span><p>Try <code>POST /cart/checkout</code> with a valid name and address — cart is empty</p></div>
+      <div class="task-item"><span class="t-icon">❌</span><p>Must return <code>400 Bad Request</code> with a clear error — not crash, not 200</p></div>
+      <div class="task-item"><span class="t-icon">📋</span><p><code>GET /orders</code> after — no new order should have been created</p></div>
+    </div>
+    <div class="test-urls">
+      <div class="task-label" style="margin-bottom:6px">Test in This Order</div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/cart</span><span class="url-note">→ "Cart is empty"</span></div>
+      <div class="test-url"><span class="mb m-post">POST</span><span class="url-text">/cart/checkout</span><span class="url-note">→ 400 Bad Request — CART_EMPTY</span></div>
+      <div class="test-url"><span class="mb m-get">GET</span><span class="url-text">/orders</span><span class="url-note">→ no new order added</span></div>
+    </div>
+    <div style="margin-top:14px;">
+      <div class="hint-toggle" onclick="toggleHint('hb')">💡 Show Hint</div>
+      <div class="hint-box" id="hb">
+        <div class="hint-header">Hint — The empty cart check in checkout()</div>
+        <div class="hint-code"><span class="cm"># This check should be at the TOP of checkout():</span>
+<span class="kw">if not</span> cart:
+    <span class="kw">raise</span> <span class="fn">HTTPException</span>(
+        status_code=<span class="num">400</span>,
+        detail=<span class="str">"Cart is empty — add items first"</span>
+    )
+<span class="cm"># if not cart: = True when cart list is empty []</span>
+<span class="cm"># 400 Bad Request = valid request format, but invalid action</span>
+<span class="cm"># No order is created because raise stops the function immediately</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Submission -->
+<div class="submit-box">
+  <h3>✅ Submission Checklist</h3>
+  <div class="submit-list">
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q1 — Wireless Mouse (subtotal 998) and Notebook (subtotal 99) added to cart</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q2 — GET /cart shows item_count: 2 and grand_total: 1097</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q3 — Adding USB Hub (id=3) returns 400. Adding id=99 returns 404</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q4 — Adding Mouse again shows "Cart updated", qty=3, grand_total=1596</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q5 — Notebook removed, checkout works, cart empty after, order in GET /orders</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q6 — 2-customer flow: 3 total orders in GET /orders at the end</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>All subtotals and grand_totals verified by manual calculation</span></div>
+    <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>⭐ Bonus — POST /cart/checkout on empty cart returns 400, no order created</span></div>
+  </div>
+</div>
+
+<div class="footer">
+  Built for <strong>FastAPI Internship Training</strong> · Assignment 4 · Day 5 — Cart System 🛒
+</div>
+</div>
+<script>
+function toggleHint(id){const box=document.getElementById(id);box.classList.toggle('open');const btn=box.previousElementSibling;btn.textContent=box.classList.contains('open')?'🙈 Hide Hint':'💡 Show Hint';}
+function toggleCheck(item){item.classList.toggle('checked');const box=item.querySelector('.s-box');box.textContent=item.classList.contains('checked')?'✓':'';}
+</script>
+</body>
+</html>

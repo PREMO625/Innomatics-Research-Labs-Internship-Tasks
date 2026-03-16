@@ -51,6 +51,7 @@ A hands-on introduction to building APIs with **FastAPI**, structured the same w
 | **Assignment 1** | Day 1 FastAPI primer — basic routing, JSON responses, and a static HTML demo page. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%201/main.py) · [fastapi_day1_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%201/fastapi_day1_assignment.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%201/requirements.txt) | ✅ Complete |
 | **Assignment 2** | Day 2 CRUD practice — product list operations, status codes, and OpenAPI docs exploration. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%202/main.py) · [fastapi_day2_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%202/fastapi_day2_assignment.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%202/requirements.txt) | ✅ Complete |
 | **Assignment 3** | Day 4 extensions — validations, error handling, and cleaner response models. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%203/main.py) · [Assignmnet3_FASTAPI_DAY4.html](IN226099102_FASTAPI/ASSIGNMENT%203/Assignmnet3_FASTAPI_DAY4.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%203/requirements.txt) | ✅ Complete |
+| **Assignment 4** | Day 5 cart system — add/update/remove items, stock checks, checkout to orders, and multi-customer flow per the HTML checklist. | [main.py](IN226099102_FASTAPI/ASSIGNMENT%204/main.py) · [fastapi_day5_assignment.html](IN226099102_FASTAPI/ASSIGNMENT%204/fastapi_day5_assignment.html) · [requirements.txt](IN226099102_FASTAPI/ASSIGNMENT%204/requirements.txt) | ✅ Complete |
 
 ### ▶️ Quick Start
 
