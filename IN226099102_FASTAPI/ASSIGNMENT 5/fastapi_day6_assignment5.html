@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FastAPI — Day 6 Assignment</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0e1a; --surface:#111827; --surface2:#1f2937;
+  --border:#2d3748; --text:#e2e8f0; --dim:#64748b;
+  --green:#10b981; --blue:#3b82f6; --yellow:#f59e0b;
+  --red:#ef4444; --purple:#8b5cf6; --cyan:#06b6d4;
+  --indigo:#6366f1;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; padding:40px 24px 80px; }
+.page { max-width:820px; margin:0 auto; }
+
+.header {
+  text-align:center; padding:48px 32px;
+  background:linear-gradient(135deg,#0f172a,#1e1b4b,#0f172a);
+  border-radius:20px; margin-bottom:36px;
+  border:1px solid #2d3748; position:relative; overflow:hidden;
+}
+.header::before {
+  content:''; position:absolute; top:-60%; right:-10%;
+  width:400px; height:400px; border-radius:50%;
+  background:radial-gradient(circle,rgba(99,102,241,.08),transparent 70%);
+}
+.header-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 14px; border-radius:20px; font-size:12px; font-weight:700;
+  background:rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.3);
+  color:#a5b4fc; margin-bottom:18px; letter-spacing:1px;
+}
+.header h1 {
+  font-size:clamp(26px,4vw,42px); font-weight:900; line-height:1.2;
+  background:linear-gradient(135deg,#fff,#a5b4fc,#818cf8);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.header-desc { color:#94a3b8; font-size:15px; max-width:520px; margin:0 auto 20px; }
+.header-pills { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.pill {
+  padding:5px 14px; border-radius:20px; font-size:12px; font-weight:600;
+  display:flex; align-items:center; gap:5px; border:1px solid;
+}
+.pill.blue   { background:rgba(59,130,246,.1);  border-color:rgba(59,130,246,.3);  color:#93c5fd; }
+.pill.green  { background:rgba(16,185,129,.1);  border-color:rgba(16,185,129,.3);  color:#6ee7b7; }
+.pill.yellow { background:rgba(245,158,11,.1);  border-color:rgba(245,158,11,.3);  color:#fcd34d; }
+.pill.purple { background:rgba(139,92,246,.1);  border-color:rgba(139,92,246,.3);  color:#c4b5fd; }
+.pill.indigo { background:rgba(99,102,241,.1);  border-color:rgba(99,102,241,.3);  color:#a5b4fc; }
+
+.rules-box {
+  background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.25);
+  border-radius:14px; padding:20px 24px; margin-bottom:32px; display:flex; gap:14px;
+}
+.rules-icon { font-size:24px; flex-shrink:0; }
+.rules-body h3 { font-size:15px; font-weight:700; color:#fcd34d; margin-bottom:8px; }
+.rules-body ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.rules-body li { font-size:13px; color:#94a3b8; display:flex; align-items:flex-start; gap:8px; }
+.rules-body li::before { content:'→'; color:#f59e0b; flex-shrink:0; margin-top:1px; }
+
+.method-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.method-badge { padding:3px 10px; border-radius:6px; font-size:11px; font-weight:800; font-family:'JetBrains Mono',monospace; }
+.m-get  { background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.4); color:#10b981; }
+.m-post { background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.4); color:#60a5fa; }
+.m-put  { background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.4); color:#fcd34d; }
+
+.q-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:18px; margin-bottom:24px; overflow:hidden; transition:border-color .3s;
+}
+.q-card:hover { border-color:#6366f1; }
+.q-header { padding:22px 26px; display:flex; align-items:flex-start; gap:16px; border-bottom:1px solid var(--border); }
+.q-badge { display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; }
+.q-num {
+  width:44px; height:44px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-weight:900; font-size:18px; color:#fff;
+}
+.q-num.q1 { background:linear-gradient(135deg,#10b981,#06b6d4); }
+.q-num.q2 { background:linear-gradient(135deg,#6366f1,#8b5cf6); }
+.q-num.q3 { background:linear-gradient(135deg,#f59e0b,#ef4444); }
+.q-num.q4 { background:linear-gradient(135deg,#ec4899,#f97316); }
+.q-num.q5 { background:linear-gradient(135deg,#8b5cf6,#06b6d4); }
+.q-num.q6 { background:linear-gradient(135deg,#6366f1,#10b981); }
+.q-num.qb { background:linear-gradient(135deg,#a855f7,#ec4899); }
+
+.difficulty { font-size:9px; font-weight:700; letter-spacing:1px; padding:2px 8px; border-radius:10px; text-transform:uppercase; }
+.diff-easy   { background:rgba(16,185,129,.15); color:#10b981; border:1px solid rgba(16,185,129,.3); }
+.diff-medium { background:rgba(245,158,11,.15); color:#f59e0b; border:1px solid rgba(245,158,11,.3); }
+.diff-hard   { background:rgba(239,68,68,.15);  color:#ef4444; border:1px solid rgba(239,68,68,.3);  }
+.diff-bonus  { background:rgba(139,92,246,.15); color:#8b5cf6; border:1px solid rgba(139,92,246,.3); }
+
+.q-title-wrap { flex:1; }
+.q-title { font-size:17px; font-weight:800; color:#fff; margin-bottom:4px; }
+.q-scenario {
+  font-size:13px; color:#94a3b8; line-height:1.6;
+  background:rgba(99,102,241,.05); border:1px solid rgba(99,102,241,.15);
+  border-radius:8px; padding:10px 14px; margin-top:10px; font-style:italic;
+}
+.q-scenario strong { color:#a5b4fc; font-style:normal; }
+
+.q-body { padding:22px 26px; }
+.task-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--dim); margin-bottom:10px; }
+.task-list { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+.task-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:10px 14px; border-radius:10px;
+  background:var(--surface2); border:1px solid var(--border);
+  font-size:13px; line-height:1.6;
+}
+.task-item .t-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+.task-item p { color:var(--text); }
+.task-item code {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  background:#0d1117; border:1px solid var(--border);
+  padding:1px 6px; border-radius:4px; color:#38bdf8;
+}
+
+.hint-toggle {
+  display:flex; align-items:center; gap:8px; cursor:pointer;
+  padding:8px 14px; border-radius:8px; width:fit-content;
+  background:rgba(139,92,246,.08); border:1px solid rgba(139,92,246,.2);
+  color:#c4b5fd; font-size:12px; font-weight:600; transition:background .2s; user-select:none;
+}
+.hint-toggle:hover { background:rgba(139,92,246,.15); }
+.hint-box { display:none; margin-top:12px; background:#0d1117; border:1px solid rgba(139,92,246,.25); border-radius:10px; overflow:hidden; }
+.hint-box.open { display:block; }
+.hint-header { padding:8px 16px; background:rgba(139,92,246,.1); font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#c4b5fd; border-bottom:1px solid rgba(139,92,246,.2); }
+.hint-code { padding:16px; font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.9; color:#e2e8f0; overflow-x:auto; }
+.kw{color:#ff7b72;} .fn{color:#d2a8ff;} .str{color:#a5d6ff;} .cm{color:#8b949e;font-style:italic;} .dec{color:#79c0ff;} .num{color:#f2cc60;} .bi{color:#ffa657;}
+
+.expected { margin-top:14px; background:#0d1117; border:1px solid rgba(16,185,129,.2); border-radius:10px; overflow:hidden; }
+.expected-header { padding:7px 16px; background:rgba(16,185,129,.08); font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#10b981; border-bottom:1px solid rgba(16,185,129,.2); }
+.expected-code { padding:14px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.9; color:#e2e8f0; }
+.j-key{color:#93c5fd;} .j-str{color:#86efac;} .j-num{color:#fcd34d;} .j-bool{color:#34d399;} .j-brace{color:#94a3b8;}
+
+.test-urls { margin-top:14px; display:flex; flex-direction:column; gap:6px; }
+.test-url { display:flex; align-items:center; gap:10px; padding:8px 14px; border-radius:8px; background:var(--surface2); border:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:12px; flex-wrap:wrap; }
+.get-badge { padding:2px 8px; border-radius:5px; font-size:10px; font-weight:800; flex-shrink:0; background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.4); color:#10b981; }
+.url-text { color:#38bdf8; flex:1; }
+.url-note { font-size:11px; color:var(--dim); font-family:'Inter',sans-serif; }
+
+.submit-box {
+  background:linear-gradient(135deg,rgba(99,102,241,.05),rgba(139,92,246,.05));
+  border:1px solid rgba(99,102,241,.25); border-radius:16px; padding:24px 28px; margin-top:36px;
+}
+.submit-box h3 { font-size:17px; font-weight:800; color:#fff; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+.submit-list { display:flex; flex-direction:column; gap:8px; }
+.submit-item {
+  display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px;
+  background:rgba(255,255,255,.03); border:1px solid var(--border); font-size:13px; cursor:pointer; transition:all .2s;
+}
+.submit-item:hover { border-color:var(--indigo); }
+.submit-item.checked { background:rgba(99,102,241,.06); border-color:rgba(99,102,241,.3); }
+.s-box { width:20px; height:20px; border-radius:5px; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; transition:all .2s; }
+.submit-item.checked .s-box { background:var(--indigo); border-color:var(--indigo); color:#fff; }
+.submit-item.checked span { text-decoration:line-through; color:var(--dim); }
+
+.footer { text-align:center; margin-top:48px; padding:24px; border-top:1px solid var(--border); color:var(--dim); font-size:13px; }
+.footer strong { color:#a5b4fc; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-tag">📝 ASSIGNMENT 5</div>
+    <h1>FastAPI — Day 6</h1>
+    <p class="header-desc">Search, Sort, and Pagination — 3 features every real API has. Build them using <strong style="color:#a5b4fc">main_day6.py</strong> from today's session.</p>
+    <div class="header-pills">
+      <div class="pill blue">⏱ 50–65 min</div>
+      <div class="pill green">6 Questions</div>
+      <div class="pill indigo">🔍 Search</div>
+      <div class="pill yellow">↕ Sort</div>
+      <div class="pill purple">📄 Pagination</div>
+    </div>
+  </div>
+
+  <div class="rules-box">
+    <div class="rules-icon">📌</div>
+    <div class="rules-body">
+      <h3>Rules & Instructions</h3>
+      <ul>
+        <li>Use <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">main_day6.py</code> — rename it to <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">main.py</code> and run with <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">uvicorn main:app --reload</code></li>
+        <li>Q1 to Q3 — use the endpoints that are already built today. No new code needed</li>
+        <li>Q4 to Q6 — you will write new code. Add above <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">GET /products/{product_id}</code></li>
+        <li>Test everything in Swagger UI at <code style="font-family:'JetBrains Mono';font-size:11px;background:#0d1117;border:1px solid #2d3748;padding:1px 6px;border-radius:4px;color:#38bdf8">http://127.0.0.1:8000/docs</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge"><div class="q-num q1">1</div><span class="difficulty diff-easy">Easy</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Test the Search Endpoint</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> A customer on the app types different words in the search box. Test <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /products/search</code> with all the cases below and write down exactly what you see for each one.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">🔍</span><p>Search <code>?keyword=mouse</code> — write how many results you get and which products appear</p></div>
+        <div class="task-item"><span class="t-icon">🔍</span><p>Search <code>?keyword=MOUSE</code> — does it return the same result? Why?</p></div>
+        <div class="task-item"><span class="t-icon">🔍</span><p>Search <code>?keyword=e</code> — which products contain the letter "e"? How many?</p></div>
+        <div class="task-item"><span class="t-icon">⚠️</span><p>Search <code>?keyword=laptop</code> — confirm the "no products found" message appears instead of an empty list</p></div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These</div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/search?keyword=mouse</span><span class="url-note">→ Wireless Mouse, total_found: 1</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/search?keyword=MOUSE</span><span class="url-note">→ same result — case-insensitive</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/search?keyword=e</span><span class="url-note">→ 3 products contain "e"</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/search?keyword=laptop</span><span class="url-note">→ "No products found for: laptop"</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h1')">💡 Show Hint</div>
+        <div class="hint-box" id="h1">
+          <div class="hint-header">Hint — The one line doing all the work</div>
+          <div class="hint-code"><span class="cm"># This single line is the entire search logic:</span>
+<span class="kw">if</span> keyword.<span class="fn">lower</span>() <span class="kw">in</span> p[<span class="str">'name'</span>].<span class="fn">lower</span>()
+
+<span class="cm"># keyword.lower()   → converts what user typed to lowercase</span>
+<span class="cm"># p['name'].lower()  → converts product name to lowercase</span>
+<span class="cm"># 'in'               → checks if keyword appears anywhere inside the name</span>
+<span class="cm"># So 'MOUSE', 'Mouse', 'mouse' all match 'Wireless Mouse'</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge"><div class="q-num q2">2</div><span class="difficulty diff-easy">Easy</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Test All Sort Combinations</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The app has a "Sort By" dropdown with 4 options — Price Low to High, Price High to Low, Name A to Z, Name Z to A. Test all 4 using <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /products/sort</code> and note what the first product is in each case.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">↕️</span><p>Sort price low to high — which product appears first? What is its price?</p></div>
+        <div class="task-item"><span class="t-icon">↕️</span><p>Sort price high to low — which product appears first? What is its price?</p></div>
+        <div class="task-item"><span class="t-icon">🔤</span><p>Sort name A to Z — write all 4 product names in the order they appear</p></div>
+        <div class="task-item"><span class="t-icon">⚠️</span><p>Send <code>?sort_by=category</code> — confirm error message appears. Why does the code reject this?</p></div>
+        <div class="task-item"><span class="t-icon">✅</span><p>Send no params at all — what defaults are used? Check the response <code>sort_by</code> and <code>order</code> fields</p></div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These</div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/sort?sort_by=price&order=asc</span><span class="url-note">→ Pen Set first (₹49)</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/sort?sort_by=price&order=desc</span><span class="url-note">→ USB Hub first (₹799)</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/sort?sort_by=name&order=asc</span><span class="url-note">→ Notebook → Pen Set → USB Hub → Wireless Mouse</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/sort?sort_by=category</span><span class="url-note">→ error: sort_by must be 'price' or 'name'</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/sort</span><span class="url-note">→ defaults: sort_by=price, order=asc</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h2')">💡 Show Hint</div>
+        <div class="hint-box" id="h2">
+          <div class="hint-header">Hint — How sorted() and reverse work</div>
+          <div class="hint-code"><span class="cm"># reverse=True  → highest first (desc)</span>
+<span class="cm"># reverse=False → lowest first  (asc)</span>
+reverse = (order == <span class="str">'desc'</span>)   <span class="cm"># True if desc, False if asc</span>
+
+<span class="cm"># key=lambda p: p[sort_by]</span>
+<span class="cm"># means: compare products by the value in p['price'] or p['name']</span>
+<span class="cm"># 'category' is not in the allowed list so it gets rejected first</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge"><div class="q-num q3">3</div><span class="difficulty diff-easy">Easy</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Navigate Pages Like a Real User</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> A user opens the shop. The app shows 2 products per page — like a catalogue. The user clicks Next, then Next again. Test <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /products/page</code> and navigate through all the pages.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">📄</span><p>Call page 1 with limit 2 — write down: which products show, what is <code>total_pages</code></p></div>
+        <div class="task-item"><span class="t-icon">📄</span><p>Call page 2 with limit 2 — write down: which products show</p></div>
+        <div class="task-item"><span class="t-icon">📄</span><p>Call page 3 with limit 2 — what does the <code>products</code> list look like? Why?</p></div>
+        <div class="task-item"><span class="t-icon">🔢</span><p>Now use limit 1 — how many total pages are there? Navigate through every single page</p></div>
+        <div class="task-item"><span class="t-icon">✅</span><p>Call with no params — what defaults are used? Which products appear?</p></div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These in Order</div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/page?page=1&limit=2</span><span class="url-note">→ Wireless Mouse + Notebook, total_pages: 2</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/page?page=2&limit=2</span><span class="url-note">→ USB Hub + Pen Set</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/page?page=3&limit=2</span><span class="url-note">→ empty products list []</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/page?page=1&limit=1</span><span class="url-note">→ only Wireless Mouse, total_pages: 4</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/page</span><span class="url-note">→ defaults: page=1, limit=2</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h3')">💡 Show Hint</div>
+        <div class="hint-box" id="h3">
+          <div class="hint-header">Hint — The pagination formula</div>
+          <div class="hint-code"><span class="cm"># Page 1, limit 2:  start = (1-1)*2 = 0  → products[0:2]</span>
+<span class="cm"># Page 2, limit 2:  start = (2-1)*2 = 2  → products[2:4]</span>
+<span class="cm"># Page 3, limit 2:  start = (3-1)*2 = 6  → products[6:8] = []</span>
+<span class="cm">#</span>
+<span class="cm"># total_pages uses ceiling division:</span>
+<span class="cm"># 4 items ÷ 2 per page = 2 pages  (exactly)</span>
+<span class="cm"># 5 items ÷ 2 per page = 3 pages  (rounds up)</span>
+<span class="cm"># Formula: -(-len(products) // limit)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge"><div class="q-num q4">4</div><span class="difficulty diff-medium">Medium</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Search the Orders List</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The store manager wants to look up all orders placed by a specific customer. Build <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /orders/search</code> that searches orders by customer name and returns all matching orders.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">🔧</span><p>First place 2–3 orders using <code>POST /orders</code> with different customer names so you have data to search</p></div>
+        <div class="task-item"><span class="t-icon">🔧</span><p>Add <code>GET /orders/search</code> with query param <code>customer_name</code> (str, required)</p></div>
+        <div class="task-item"><span class="t-icon">🔍</span><p>Return all orders where <code>customer_name</code> contains the keyword — make it case-insensitive like products search</p></div>
+        <div class="task-item"><span class="t-icon">⚠️</span><p>If no orders found for that name, return a friendly message instead of an empty list</p></div>
+      </div>
+      <div class="expected">
+        <div class="expected-header">Expected Response — GET /orders/search?customer_name=rahul</div>
+        <div class="expected-code"><span class="j-brace">{</span>
+  <span class="j-key">"customer_name"</span>: <span class="j-str">"rahul"</span>,
+  <span class="j-key">"total_found"</span>:  <span class="j-num">2</span>,
+  <span class="j-key">"orders"</span>: [
+    <span class="j-brace">{</span> <span class="j-key">"order_id"</span>: <span class="j-num">1</span>, <span class="j-key">"customer_name"</span>: <span class="j-str">"Rahul Sharma"</span>, ... <span class="j-brace">}</span>,
+    <span class="j-brace">{</span> <span class="j-key">"order_id"</span>: <span class="j-num">3</span>, <span class="j-key">"customer_name"</span>: <span class="j-str">"Rahul Kumar"</span>,  ... <span class="j-brace">}</span>
+  ]
+<span class="j-brace">}</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h4')">💡 Show Hint</div>
+        <div class="hint-box" id="h4">
+          <div class="hint-header">Hint — Same pattern as product search, different list</div>
+          <div class="hint-code"><span class="dec">@app.get</span>(<span class="str">'/orders/search'</span>)
+<span class="kw">def</span> <span class="fn">search_orders</span>(customer_name: <span class="fn">str</span> = Query(...)):
+    results = [
+        o <span class="kw">for</span> o <span class="kw">in</span> orders
+        <span class="kw">if</span> customer_name.<span class="fn">lower</span>() <span class="kw">in</span> o[<span class="str">'customer_name'</span>].<span class="fn">lower</span>()
+    ]
+    <span class="kw">if not</span> results:
+        <span class="kw">return</span> {<span class="str">'message'</span>: <span class="fn">f</span><span class="str">'No orders found for: {customer_name}'</span>}
+    <span class="kw">return</span> {<span class="str">'customer_name'</span>: customer_name, <span class="str">'total_found'</span>: <span class="bi">len</span>(results), <span class="str">'orders'</span>: results}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge"><div class="q-num q5">5</div><span class="difficulty diff-medium">Medium</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Sort Products by Category Then Price</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The admin wants to see all products grouped by category — but within each category, cheapest first. The existing <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">/products/sort</code> only sorts by one field. Build <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /products/sort-by-category</code> that first groups by category alphabetically, then sorts by price within each group.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">🔧</span><p>Build <code>GET /products/sort-by-category</code> — no query params needed. Place it above <code>/products/{product_id}</code></p></div>
+        <div class="task-item"><span class="t-icon">📊</span><p>Sort products first by <code>category</code> alphabetically (A→Z), then by <code>price</code> ascending within each category</p></div>
+        <div class="task-item"><span class="t-icon">✅</span><p>Result: Electronics section shows USB Hub and Wireless Mouse (price order), Stationery shows Notebook and Pen Set</p></div>
+      </div>
+      <div class="expected">
+        <div class="expected-header">Expected Order — GET /products/sort-by-category</div>
+        <div class="expected-code"><span class="cm">Electronics  (alphabetically first)</span>
+  Wireless Mouse  ₹499  ← cheaper Electronics first
+  USB Hub         ₹799
+
+<span class="cm">Stationery</span>
+  Pen Set         ₹49   ← cheaper Stationery first
+  Notebook        ₹99</div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h5')">💡 Show Hint</div>
+        <div class="hint-box" id="h5">
+          <div class="hint-header">Hint — sorted() can sort by multiple keys using a tuple</div>
+          <div class="hint-code"><span class="dec">@app.get</span>(<span class="str">'/products/sort-by-category'</span>)
+<span class="kw">def</span> <span class="fn">sort_by_category</span>():
+    <span class="cm"># key returns a tuple — Python sorts by first value,</span>
+    <span class="cm"># then by second value when first values are equal</span>
+    result = <span class="bi">sorted</span>(products, key=<span class="kw">lambda</span> p: (p[<span class="str">'category'</span>], p[<span class="str">'price'</span>]))
+    <span class="kw">return</span> {<span class="str">'products'</span>: result, <span class="str">'total'</span>: <span class="bi">len</span>(result)}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card">
+    <div class="q-header">
+      <div class="q-badge"><div class="q-num q6">6</div><span class="difficulty diff-hard">Hard</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Search + Sort + Paginate in One Endpoint</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> Real shopping APIs don't have 3 separate endpoints — they combine everything into one smart endpoint. Build <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /products/browse</code> that can search by keyword, sort results, AND paginate — all in one call, all params optional.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">🔧</span><p>Build <code>GET /products/browse</code> with all optional params: <code>keyword</code> (str), <code>sort_by</code> (str, default "price"), <code>order</code> (str, default "asc"), <code>page</code> (int, default 1), <code>limit</code> (int, default 4)</p></div>
+        <div class="task-item"><span class="t-icon">🔄</span><p>Apply in this order: first filter by keyword (if given) → then sort → then paginate the sorted result</p></div>
+        <div class="task-item"><span class="t-icon">📊</span><p>Return: keyword used, sort settings, pagination info (page, limit, total_found, total_pages), and the products for that page</p></div>
+      </div>
+      <div class="test-urls">
+        <div class="task-label" style="margin-bottom:6px;">Test These</div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/browse</span><span class="url-note">→ no filters, all 4 products sorted by price asc, page 1</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/browse?keyword=e&sort_by=price&order=asc&page=1&limit=2</span><span class="url-note">→ filtered, sorted, paged</span></div>
+        <div class="test-url"><span class="get-badge">GET</span><span class="url-text">/products/browse?sort_by=name&order=desc&page=1&limit=2</span><span class="url-note">→ no keyword, sorted Z-A, page 1</span></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('h6')">💡 Show Hint</div>
+        <div class="hint-box" id="h6">
+          <div class="hint-header">Hint — Chain all 3 operations in order</div>
+          <div class="hint-code"><span class="dec">@app.get</span>(<span class="str">'/products/browse'</span>)
+<span class="kw">def</span> <span class="fn">browse_products</span>(
+    keyword: <span class="fn">str</span> = Query(<span class="kw">None</span>),
+    sort_by: <span class="fn">str</span> = Query(<span class="str">'price'</span>),
+    order:   <span class="fn">str</span> = Query(<span class="str">'asc'</span>),
+    page:    <span class="fn">int</span> = Query(<span class="num">1</span>, ge=<span class="num">1</span>),
+    limit:   <span class="fn">int</span> = Query(<span class="num">4</span>, ge=<span class="num">1</span>, le=<span class="num">20</span>),
+):
+    <span class="cm"># Step 1: Search</span>
+    result = products
+    <span class="kw">if</span> keyword:
+        result = [p <span class="kw">for</span> p <span class="kw">in</span> result <span class="kw">if</span> keyword.<span class="fn">lower</span>() <span class="kw">in</span> p[<span class="str">'name'</span>].<span class="fn">lower</span>()]
+
+    <span class="cm"># Step 2: Sort</span>
+    <span class="kw">if</span> sort_by <span class="kw">in</span> [<span class="str">'price'</span>, <span class="str">'name'</span>]:
+        result = <span class="bi">sorted</span>(result, key=<span class="kw">lambda</span> p: p[sort_by], reverse=(order==<span class="str">'desc'</span>))
+
+    <span class="cm"># Step 3: Paginate</span>
+    total  = <span class="bi">len</span>(result)
+    start  = (page - <span class="num">1</span>) * limit
+    paged  = result[start : start + limit]
+
+    <span class="kw">return</span> {
+        <span class="str">'keyword'</span>:     keyword, <span class="str">'sort_by'</span>: sort_by, <span class="str">'order'</span>: order,
+        <span class="str">'page'</span>: page,  <span class="str">'limit'</span>: limit, <span class="str">'total_found'</span>: total,
+        <span class="str">'total_pages'</span>: -(- total // limit),
+        <span class="str">'products'</span>:    paged,
+    }</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BONUS -->
+  <div class="q-card" style="border-color:rgba(168,85,247,.4);background:linear-gradient(135deg,rgba(168,85,247,.04),rgba(236,72,153,.04));">
+    <div class="q-header" style="border-bottom-color:rgba(168,85,247,.2);">
+      <div class="q-badge"><div class="q-num qb">⭐</div><span class="difficulty diff-bonus">Bonus</span></div>
+      <div class="q-title-wrap">
+        <div class="q-title">Paginate the Orders List</div>
+        <div class="method-row"><span class="method-badge m-get">GET</span></div>
+        <div class="q-scenario">
+          <strong>Scenario:</strong> The orders list keeps growing. Build <code style="font-family:'JetBrains Mono';font-size:11px;color:#a5b4fc">GET /orders/page</code> so the admin can browse orders in pages — same pagination logic as products, applied to the orders list.
+        </div>
+      </div>
+    </div>
+    <div class="q-body">
+      <div class="task-label">Your Tasks</div>
+      <div class="task-list">
+        <div class="task-item"><span class="t-icon">🔧</span><p>First place 5+ orders using <code>POST /orders</code> so you have enough data to paginate</p></div>
+        <div class="task-item"><span class="t-icon">🔧</span><p>Build <code>GET /orders/page</code> with <code>page</code> (default 1) and <code>limit</code> (default 3) params — same formula as <code>/products/page</code></p></div>
+        <div class="task-item"><span class="t-icon">✅</span><p>Test page 1 and page 2 — confirm they show different orders and <code>total_pages</code> is correct</p></div>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="hint-toggle" onclick="toggleHint('hb')">💡 Show Hint</div>
+        <div class="hint-box" id="hb">
+          <div class="hint-header">Hint — Copy the pagination pattern, change products → orders</div>
+          <div class="hint-code"><span class="dec">@app.get</span>(<span class="str">'/orders/page'</span>)
+<span class="kw">def</span> <span class="fn">get_orders_paged</span>(
+    page:  <span class="fn">int</span> = Query(<span class="num">1</span>, ge=<span class="num">1</span>),
+    limit: <span class="fn">int</span> = Query(<span class="num">3</span>, ge=<span class="num">1</span>, le=<span class="num">20</span>),
+):
+    start = (page - <span class="num">1</span>) * limit
+    <span class="kw">return</span> {
+        <span class="str">'page'</span>:        page,
+        <span class="str">'limit'</span>:       limit,
+        <span class="str">'total'</span>:       <span class="bi">len</span>(orders),
+        <span class="str">'total_pages'</span>: -(-<span class="bi">len</span>(orders) // limit),
+        <span class="str">'orders'</span>:      orders[start : start + limit],
+    }</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-box">
+    <h3>✅ Submission Checklist</h3>
+    <div class="submit-list">
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q1 — Search "mouse" and "MOUSE" return same result (case-insensitive)</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q1 — Search "laptop" returns friendly no-results message</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q2 — All 4 sort combinations tested, first product noted for each</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q2 — sort_by=category returns error message correctly</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q3 — Page 1 and Page 2 show different products, Page 3 is empty</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q3 — limit=1 shows 4 total_pages correctly</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q4 — GET /orders/search finds orders by customer name (case-insensitive)</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q5 — GET /products/sort-by-category shows Electronics first, then Stationery, cheaper first within each</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q6 — GET /products/browse works with all params combined in one call</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>Q6 — browse with no params returns all 4 products sorted by price asc</span></div>
+      <div class="submit-item" onclick="toggleCheck(this)"><div class="s-box">✓</div><span>⭐ Bonus — GET /orders/page paginates the orders list correctly</span></div>
+    </div>
+  </div>
+
+  <div class="footer">Built for <strong>FastAPI Internship Training</strong> · Assignment 5 — Day 6 · Good luck! 🚀</div>
+</div>
+<script>
+function toggleHint(id){const box=document.getElementById(id);box.classList.toggle('open');box.previousElementSibling.textContent=box.classList.contains('open')?'🙈 Hide Hint':'💡 Show Hint';}
+function toggleCheck(item){item.classList.toggle('checked');item.querySelector('.s-box').textContent=item.classList.contains('checked')?'✓':'';}
+</script>
+</body>
+</html>
