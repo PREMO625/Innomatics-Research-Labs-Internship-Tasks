@@ -32,13 +32,13 @@ Each task is designed to strengthen problem-solving skills and build a solid fou
 
 | Task | Description | Notebook | Status |
 |:----:|:------------|:---------|:------:|
-| **Task 1** | Foundational Logic Building<br/>• User Authentication System<br/>• Pass/Fail Analyzer<br/>• Control Flow Challenges | [📓 View Task 1](Notebooks/Task%201%20Logic_Building.ipynb) | ✅ Complete |
-| **Task 2** | Advanced Problem Solving<br/>• Unique Word Counter<br/>• Salary Data Analysis<br/>• Min/Max Finder & More | [📓 View Task 2](Notebooks/Task%202%20Feb_2026_Internship_–_Logic_Building.ipynb) | ✅ Complete |
-| **Task 3** | Data Processing & Analysis<br/>• Working with Real Datasets<br/>• Data Manipulation Techniques<br/>• Statistical Analysis & Insights | [📓 View Task 3](Notebooks/Task%203%20Data_Processing_and_Analysis.ipynb) | ✅ Complete |
-| **Task 4** | Functions with Loops Mastery<br/>• Mobile Recharge Validator<br/>• Inventory Alert System<br/>• Cab Fare Estimator & More | [📓 View Task 4](Notebooks/Task%204%20Feb_Internship_2026.ipynb) | ✅ Complete |
-| **Task 5** | Real-World Function Applications<br/>• Post Engagement Analyzer<br/>• Medicine Stock Alert System<br/>• Electricity Bill Calculator & More | [📓 View Task 5](Notebooks/Task%205%20Feb_Internship_2026.ipynb) | ✅ Complete |
-| **Task 6** | Function-Based Problem Solving<br/>• Smart Parking Lot Management<br/>• Food Delivery Time Estimator<br/>• Server Load Classification & More | [📓 View Task 6](Notebooks/Task_6_Function_Based_Problem_Solving.ipynb) | ✅ Complete |
-| **Task 7** | Object-Oriented Programming Basics<br/>• Smart Light Controller<br/>• Employee ID Card System<br/>• Mobile Contact Record<br/>• Product Price Tag Generator<br/>• Movie Rating Display System<br/>• Delivery Address Manager | [📓 View Task 7](Notebooks/Feb_Internship_2026_Task_7.ipynb) | ✅ Complete |
+| **Task 1** | Foundational Logic Building<br/>• User Authentication System<br/>• Pass/Fail Analyzer<br/>• Control Flow Challenges | [📓 View Task 1](IN226099102_Python/Task%201%20Logic_Building.ipynb) | ✅ Complete |
+| **Task 2** | Advanced Problem Solving<br/>• Unique Word Counter<br/>• Salary Data Analysis<br/>• Min/Max Finder & More | [📓 View Task 2](IN226099102_Python/Task%202%20Feb_2026_Internship_–_Logic_Building.ipynb) | ✅ Complete |
+| **Task 3** | Data Processing & Analysis<br/>• Working with Real Datasets<br/>• Data Manipulation Techniques<br/>• Statistical Analysis & Insights | [📓 View Task 3](IN226099102_Python/Task%203%20Data_Processing_and_Analysis.ipynb) | ✅ Complete |
+| **Task 4** | Functions with Loops Mastery<br/>• Mobile Recharge Validator<br/>• Inventory Alert System<br/>• Cab Fare Estimator & More | [📓 View Task 4](IN226099102_Python/Task%204%20Feb_Internship_2026.ipynb) | ✅ Complete |
+| **Task 5** | Real-World Function Applications<br/>• Post Engagement Analyzer<br/>• Medicine Stock Alert System<br/>• Electricity Bill Calculator & More | [📓 View Task 5](IN226099102_Python/Task%205%20Feb_Internship_2026.ipynb) | ✅ Complete |
+| **Task 6** | Function-Based Problem Solving<br/>• Smart Parking Lot Management<br/>• Food Delivery Time Estimator<br/>• Server Load Classification & More | [📓 View Task 6](IN226099102_Python/Task_6_Function_Based_Problem_Solving.ipynb) | ✅ Complete |
+| **Task 7** | Object-Oriented Programming Basics<br/>• Smart Light Controller<br/>• Employee ID Card System<br/>• Mobile Contact Record<br/>• Product Price Tag Generator<br/>• Movie Rating Display System<br/>• Delivery Address Manager | [📓 View Task 7](IN226099102_Python/Feb_Internship_2026_Task_7.ipynb) | ✅ Complete |
 
 ---
 
@@ -70,6 +70,17 @@ uvicorn main:app --reload --port 8000
 ```
 
 Open the docs at http://127.0.0.1:8000/docs and hit the listed routes; the dataset resets on server restart.
+
+For the final FASTAPI project (movie ticket booking demo), visit https://github.com/PREMO625/fastapi-movie-ticket-booking to see the complete project and deployment notes.
+
+---
+## ▶️ GenAI Projects — IN226099102_GenAI
+
+A concise collection of GenAI notebooks and experiments.
+
+| Task | Focus & Files | Status |
+|:----:|:-------------|:------:|
+| **Task 1** | Build a Robust NLP Preprocessing Engine — [Notebook](IN226099102_GenAI/Task_1_Build_a_Robust_NLP_Preprocessing_Engine.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey
