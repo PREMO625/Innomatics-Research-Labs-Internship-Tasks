@@ -128,7 +128,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 </td>
 <td width="20%" align="center">
 
-![Python](https://media.giphy.com/media/KAq5w47R9rmTuvWOWa/giphy.gif)
+![Python](https://media.tenor.com/1ZQZ6r0l1g0AAAAC/neural-network-ai.gif)
 
 </td>
 </tr>
