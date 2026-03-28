@@ -145,7 +145,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 </td>
 <td width="20%" align="center">
 
-![NLP](https://media.tenor.com/9Jz3K8n0b9gAAAAC/system-processing.gif)
+![NLP](https://media.tenor.com/xTiTnqUxyWbsAXq7Ju.gif)
 
 </td>
 </tr>
