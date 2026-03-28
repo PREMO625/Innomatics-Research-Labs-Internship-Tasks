@@ -128,7 +128,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 </td>
 <td width="20%" align="center">
 
-![Python](https://media.tenor.com/1ZQZ6r0l1g0AAAAC/neural-network-ai.gif)
+![Python](https://media.giphy.com/media/KAq5w47R9rmTuvWOWa/giphy.gif)
 
 </td>
 </tr>
@@ -145,7 +145,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 </td>
 <td width="20%" align="center">
 
-![NLP](https://media.tenor.com/L0x2b4j2zj8AAAAC/data-processing-text.gif)
+![NLP](https://media.tenor.com/MVtT0P6p6tUAAAAC/distracted-boyfriend.gif)
 
 </td>
 </tr>
