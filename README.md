@@ -81,6 +81,7 @@ A concise collection of GenAI notebooks and experiments.
 | Task | Focus & Files | Status |
 |:----:|:-------------|:------:|
 | **Task 1** | Build a Robust NLP Preprocessing Engine — [Notebook](IN226099102_GenAI/Task_1_Build_a_Robust_NLP_Preprocessing_Engine.ipynb) | ✅ Complete |
+| **Task 2** | Sentiment Analysis — [Notebook](IN226099102_GenAI/Task_2_ASSIGNMENT_NLP_2_%28Sentiment_Analysis_%29.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey
@@ -128,6 +129,23 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 <td width="20%" align="center">
 
 ![Python](https://media.giphy.com/media/KAq5w47R9rmTuvWOWa/giphy.gif)
+
+</td>
+</tr>
+</tr>
+<tr>
+<td width="80%">
+
+### 🧠 [From Doing It Raw to Using Protection in AI](https://medium.com/@premo625geet/from-doing-it-raw-to-using-protection-in-ai-df1502d39ce5) — Geet Vilas Jamdal
+
+**Don't feed raw text to models.** A practical 8‑minute guide that explains why raw text breaks models and how a simple NLP "protection layer" (lowercasing, URL/punctuation removal, tokenization, stopword removal, stemming/lemmatization, emoji handling, and vectorization) turns chaos into model‑ready data. Includes real‑world tips for noisy social media text and when to favor speed vs. precision.
+
+📅 **Published:** March 2026 | ⏱️ **Read Time:** 8 minutes
+
+</td>
+<td width="20%" align="center">
+
+![NLP](https://media.giphy.com/media/3o6gbbuLW76jkt8vIc/giphy.gif)
 
 </td>
 </tr>
