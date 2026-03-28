@@ -128,7 +128,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 </td>
 <td width="20%" align="center">
 
-![Python](https://media.giphy.com/media/KAq5w47R9rmTuvWOWa/giphy.gif)
+![Python](https://media.tenor.com/8iZ0c7yqQ7kAAAAC/glitch-effect.gif)
 
 </td>
 </tr>
