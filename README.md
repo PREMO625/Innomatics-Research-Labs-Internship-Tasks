@@ -146,7 +146,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 </td>
 <td width="20%" align="center">
 
-![NLP](https://media.giphy.com/media/3o6gbbuLW76jkt8vIc/giphy.gif)
+![NLP](https://media.tenor.com/2roX3uxz_68AAAAC/data-processing.gif)
 
 </td>
 </tr>
