@@ -82,6 +82,7 @@ A concise collection of GenAI notebooks and experiments.
 |:----:|:-------------|:------:|
 | **Task 1** | Build a Robust NLP Preprocessing Engine — [Notebook](IN226099102_GenAI/Task_1_Build_a_Robust_NLP_Preprocessing_Engine.ipynb) | ✅ Complete |
 | **Task 2** | Sentiment Analysis — [Notebook](IN226099102_GenAI/Task_2_ASSIGNMENT_NLP_2_%28Sentiment_Analysis_%29.ipynb) | ✅ Complete |
+| **Task 3** | NLP 3 — [Notebook](IN226099102_GenAI/Task_3_NLP_%E2%80%93_3_.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey
