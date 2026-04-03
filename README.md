@@ -139,7 +139,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 <tr>
 <td width="80%">
 
-### 🧠 [From Doing It Raw to Using Protection in AI](https://medium.com/@premo625geet/from-doing-it-raw-to-using-protection-in-ai-df1502d39ce5) — Geet Vilas Jamdal
+### 🧠 [From Doing It Raw to Using Protection in AI](https://medium.com/@premo625geet/from-doing-it-raw-to-using-protection-in-ai-df1502d39ce5)
 
 **Don't feed raw text to models.** A practical 8‑minute guide that explains why raw text breaks models and how a simple NLP "protection layer" (lowercasing, URL/punctuation removal, tokenization, stopword removal, stemming/lemmatization, emoji handling, and vectorization) turns chaos into model‑ready data. Includes real‑world tips for noisy social media text and when to favor speed vs. precision.
 
@@ -155,7 +155,7 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 <tr>
 <td width="80%">
 
-### 🧠 [I See Tokens Everywhere](https://medium.com/@premo625geet/i-see-tokens-everywhere-4a9c0cecea31) — Geet Vilas Jamdal
+### 🧠 [I See Tokens Everywhere](https://medium.com/@premo625geet/i-see-tokens-everywhere-4a9c0cecea31)
 
 **Token Classification Explained (Without Boring You to Death btw…)** A practical walkthrough of token-level NLP covering NER, POS tagging, chunking, and why transformer models like BERT changed token understanding.
 
