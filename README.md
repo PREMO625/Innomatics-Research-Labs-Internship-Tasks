@@ -84,6 +84,7 @@ A concise collection of GenAI notebooks and experiments.
 | **Task 2** | Sentiment Analysis Pipeline<br/>• End-to-end sentiment classification setup<br/>• Data preparation and model training flow<br/>• Performance evaluation outputs | [📓 View Task 2](IN226099102_GenAI/Task_2_ASSIGNMENT_NLP_2_%28Sentiment_Analysis_%29.ipynb) | ✅ Complete |
 | **Task 3** | NLP Experimentation (Task 3)<br/>• Extended NLP workflow practice<br/>• Text-processing and modeling exercises<br/>• Comparative experimentation setup | [📓 View Task 3](IN226099102_GenAI/Task_3_NLP_3.ipynb) | ✅ Complete |
 | **Task 4** | Fine-Tuning BERT on Kaggle IMDB Dataset<br/>• IMDB sentiment classification with transformers<br/>• BERT fine-tuning experiments (full/frozen/partial)<br/>• RoBERTa comparison and metrics analysis | [📓 View Task 4](IN226099102_GenAI/Task_4_NLP_Fine_Tuning_BERT_on_Kaggle_Dataset.ipynb) | ✅ Complete |
+| **Task 5** | Token Classification (NER, POS Tagging & Chunking)<br/>• BIO tagging and entity extraction concepts<br/>• POS tagging and phrase-level chunking workflow<br/>• spaCy-based implementation with transformer context (BERT) | [📓 View Task 5](IN226099102_GenAI/Task_NLP_%E2%80%93_5_%28Token_Classification_POS_Tagging_%26_Chunking%29.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey
@@ -151,6 +152,28 @@ Sharing insights and deep-dives into Python concepts through technical writing:
 
 </td>
 </tr>
+<tr>
+<td width="80%">
+
+### 🧠 [I See Tokens Everywhere](https://medium.com/@premo625geet/i-see-tokens-everywhere-4a9c0cecea31) — Geet Vilas Jamdal
+
+**Token Classification Explained (Without Boring You to Death btw…)** A practical walkthrough of token-level NLP covering NER, POS tagging, chunking, and why transformer models like BERT changed token understanding.
+
+**What You'll Learn:**
+- **Named Entity Recognition (NER)** — BIO tagging to identify people, organizations, locations, dates, and monetary entities
+- **POS Tagging** — Grammatical role labeling that improves interpretation and downstream NLP tasks
+- **Chunking** — Phrase detection for noun/prepositional structures used in extraction pipelines
+- **From spaCy to BERT** — A code-first path from classic NLP pipelines to transformer-based token classification
+
+📅 **Published:** April 2026 | ⏱️ **Read Time:** 8 minutes
+
+</td>
+<td width="20%" align="center">
+
+![Token Classification](https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif)
+
+</td>
+</tr>
 </table>
 
 ---
@@ -205,6 +228,6 @@ This repository is maintained for educational purposes as part of the **Innomati
 
 **Made with ❤️ and Python**
 
-*Last Updated: March 2026*
+*Last Updated: April 2026*
 
 </div>
