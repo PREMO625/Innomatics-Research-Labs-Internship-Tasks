@@ -74,17 +74,26 @@ Open the docs at http://127.0.0.1:8000/docs and hit the listed routes; the datas
 For the final FASTAPI project (movie ticket booking demo), visit https://github.com/PREMO625/fastapi-movie-ticket-booking to see the complete project and deployment notes.
 
 ---
-## ▶️ GenAI Projects — IN226099102_GenAI
+## ▶️ NLP Projects — IN226099102_NLP
 
-A concise collection of GenAI notebooks and experiments.
+A focused set of NLP notebooks covering preprocessing, sentiment analysis, transformer fine-tuning, and token-level tasks.
 
 | Task | Description | Notebook | Status |
 |:----:|:------------|:---------|:------:|
-| **Task 1** | Robust NLP Preprocessing Engine<br/>• Text cleaning and normalization<br/>• Token-level preprocessing workflow<br/>• Ready-to-train NLP input pipeline | [📓 View Task 1](IN226099102_GenAI/Task_1_Build_a_Robust_NLP_Preprocessing_Engine.ipynb) | ✅ Complete |
-| **Task 2** | Sentiment Analysis Pipeline<br/>• End-to-end sentiment classification setup<br/>• Data preparation and model training flow<br/>• Performance evaluation outputs | [📓 View Task 2](IN226099102_GenAI/Task_2_ASSIGNMENT_NLP_2_%28Sentiment_Analysis_%29.ipynb) | ✅ Complete |
-| **Task 3** | NLP Experimentation (Task 3)<br/>• Extended NLP workflow practice<br/>• Text-processing and modeling exercises<br/>• Comparative experimentation setup | [📓 View Task 3](IN226099102_GenAI/Task_3_NLP_3.ipynb) | ✅ Complete |
-| **Task 4** | Fine-Tuning BERT on Kaggle IMDB Dataset<br/>• IMDB sentiment classification with transformers<br/>• BERT fine-tuning experiments (full/frozen/partial)<br/>• RoBERTa comparison and metrics analysis | [📓 View Task 4](IN226099102_GenAI/Task_4_NLP_Fine_Tuning_BERT_on_Kaggle_Dataset.ipynb) | ✅ Complete |
-| **Task 5** | Token Classification (NER, POS Tagging & Chunking)<br/>• BIO tagging and entity extraction concepts<br/>• POS tagging and phrase-level chunking workflow<br/>• spaCy-based implementation with transformer context (BERT) | [📓 View Task 5](IN226099102_GenAI/Task_NLP_%E2%80%93_5_%28Token_Classification_POS_Tagging_%26_Chunking%29.ipynb) | ✅ Complete |
+| **Task 1** | Robust NLP Preprocessing Engine<br/>• Text cleaning and normalization<br/>• Token-level preprocessing workflow<br/>• Ready-to-train NLP input pipeline | [📓 View Task 1](IN226099102_NLP/Task_1_Build_a_Robust_NLP_Preprocessing_Engine.ipynb) | ✅ Complete |
+| **Task 2** | Sentiment Analysis Pipeline<br/>• End-to-end sentiment classification setup<br/>• Data preparation and model training flow<br/>• Performance evaluation outputs | [📓 View Task 2](IN226099102_NLP/Task_2_ASSIGNMENT_NLP_2_%28Sentiment_Analysis_%29.ipynb) | ✅ Complete |
+| **Task 3** | NLP Experimentation (Task 3)<br/>• Extended NLP workflow practice<br/>• Text-processing and modeling exercises<br/>• Comparative experimentation setup | [📓 View Task 3](IN226099102_NLP/Task_3_NLP_3.ipynb) | ✅ Complete |
+| **Task 4** | Fine-Tuning BERT on Kaggle IMDB Dataset<br/>• IMDB sentiment classification with transformers<br/>• BERT fine-tuning experiments (full/frozen/partial)<br/>• RoBERTa comparison and metrics analysis | [📓 View Task 4](IN226099102_NLP/Task_4_NLP_Fine_Tuning_BERT_on_Kaggle_Dataset.ipynb) | ✅ Complete |
+| **Task 5** | Token Classification (NER, POS Tagging & Chunking)<br/>• BIO tagging and entity extraction concepts<br/>• POS tagging and phrase-level chunking workflow<br/>• spaCy-based implementation with transformer context (BERT) | [📓 View Task 5](IN226099102_NLP/Task_NLP_%E2%80%93_5_%28Token_Classification_POS_Tagging_%26_Chunking%29.ipynb) | ✅ Complete |
+
+---
+## ▶️ GenAI Projects — IN226099102_GenAI
+
+A concise collection of GenAI notebooks and prompt engineering experiments.
+
+| Task | Description | Notebook | Status |
+|:----:|:------------|:---------|:------:|
+| **Task 1** | Prompt Templates using LangChain<br/>• Reusable prompt template design<br/>• LangChain-based prompt workflows<br/>• Structured prompting for GenAI use cases | [📓 View Task 1](IN226099102_GenAI/Task_%E2%80%93_1_GenAI_%E2%80%93_Prompt_Templates_using_LangChain.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey
