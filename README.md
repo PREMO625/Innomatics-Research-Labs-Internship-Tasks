@@ -94,6 +94,7 @@ A concise collection of GenAI notebooks and prompt engineering experiments.
 | Task | Description | Notebook | Status |
 |:----:|:------------|:---------|:------:|
 | **Task 1** | Prompt Templates using LangChain<br/>• Reusable prompt template design<br/>• LangChain-based prompt workflows<br/>• Structured prompting for GenAI use cases | [📓 View Task 1](IN226099102_GenAI/Task_%E2%80%93_1_GenAI_%E2%80%93_Prompt_Templates_using_LangChain.ipynb) | ✅ Complete |
+| **Task 2** | LangChain deep-dive: chaining, RAG, agents, and Colab notebook documented | [📓 View Task 2](IN226099102_GenAI/LangChain_Blog_Documented%5BFinal%5D.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey
@@ -118,6 +119,24 @@ Alongside the internship tasks, I consistently practised Python on **HackerRank*
 Sharing insights and deep-dives into Python concepts through technical writing:
 
 <table>
+<tr>
+<td width="80%">
+
+### 🔗 [“It’s Just Chaining Prompts, Bro.” — Said No One Who Actually Built with LangChain](https://medium.com/@premo625geet/its-just-chaining-prompts-bro-said-no-one-who-actually-built-with-langchain-e6cd085394dc)
+
+A practical walkthrough of LangChain: chaining prompts, memory, RAG, agents, and a reproducible Colab notebook.
+
+**Refer to/Download & Use the Notebook here:** [LangChain Blog Notebook](IN226099102_GenAI/LangChain_Blog_Documented%5BFinal%5D.ipynb)
+
+📅 **Published:** 2026 | ⏱️ **Read Time:** 11 minutes
+
+</td>
+<td width="20%" align="center">
+
+![LangChain](https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif)
+
+</td>
+</tr>
 <tr>
 <td width="80%">
 
