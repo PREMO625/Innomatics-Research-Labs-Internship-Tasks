@@ -1,0 +1,119 @@
+============================================================
+         JOB DESCRIPTION: DATA SCIENTIST
+============================================================
+
+Company   : Everan Solutions
+Location  : [City, India / Remote]
+Job Type  : Full-Time
+Experience: 2+ Years
+Posted    : April 2026
+
+------------------------------------------------------------
+ABOUT THE ROLE
+------------------------------------------------------------
+We are looking for a skilled and curious Data Scientist to
+join our growing analytics team. You will work on building
+predictive models, extracting insights from large datasets,
+and communicating findings to business stakeholders.
+
+------------------------------------------------------------
+KEY RESPONSIBILITIES
+------------------------------------------------------------
+- Develop and deploy machine learning models for business
+  use-cases (classification, regression, clustering, etc.)
+- Write efficient Python and SQL code for data extraction,
+  transformation, and analysis.
+- Perform statistical analysis and hypothesis testing to
+  validate model assumptions and business insights.
+- Build clear, interactive data visualisations and reports
+  to communicate findings to non-technical stakeholders.
+- Collaborate with data engineers, product managers, and
+  business analysts across the full data lifecycle.
+- Monitor and maintain deployed models; retrain as needed.
+- Document methodologies, experiments, and results clearly.
+
+------------------------------------------------------------
+REQUIRED SKILLS & QUALIFICATIONS
+------------------------------------------------------------
+Programming:
+  - Python (proficient): NumPy, Pandas, Matplotlib, Seaborn
+  - SQL (intermediate to advanced): complex joins, window
+    functions, aggregations; experience with PostgreSQL or
+    MySQL preferred.
+
+Machine Learning:
+  - Solid understanding of supervised and unsupervised ML
+    algorithms: Linear/Logistic Regression, Decision Trees,
+    Random Forest, Gradient Boosting (XGBoost/LightGBM),
+    K-Means, PCA, etc.
+  - Hands-on experience with Scikit-learn for model building,
+    cross-validation, hyperparameter tuning, and evaluation.
+
+Statistics & Mathematics:
+  - Strong foundation in probability, statistics, hypothesis
+    testing, A/B testing, and regression analysis.
+
+Data Visualisation:
+  - Ability to create meaningful charts and dashboards using
+    tools such as Matplotlib, Seaborn, Plotly, or Tableau.
+  - Experience translating complex data into clear business
+    narratives for diverse audiences.
+
+Data Manipulation:
+  - Proficiency with Pandas for data cleaning, reshaping,
+    merging, and feature engineering at scale.
+
+Experience:
+  - Minimum 2 years of professional experience in a data
+    science or closely related analytical role.
+  - Demonstrated experience taking an ML project from
+    problem framing to production deployment.
+
+Education:
+  - Bachelor's degree (or higher) in Computer Science,
+    Statistics, Mathematics, Engineering, or a related
+    quantitative field.
+
+------------------------------------------------------------
+BONUS / NICE-TO-HAVE SKILLS
+------------------------------------------------------------
+Deep Learning:
+  - Familiarity with neural-network frameworks such as
+    TensorFlow or PyTorch.
+  - Experience with CNNs, RNNs, or Transformer-based models.
+
+NLP (Natural Language Processing):
+  - Experience with text preprocessing, sentiment analysis,
+    named-entity recognition, or working with LLMs/BERT.
+  - Familiarity with HuggingFace Transformers or spaCy is
+    a plus.
+
+Cloud Platforms (AWS preferred):
+  - Basic hands-on experience with AWS services such as
+    S3, EC2, SageMaker, Lambda, or equivalent on GCP/Azure.
+  - Understanding of deploying ML models as REST APIs or
+    managed endpoints is advantageous.
+
+------------------------------------------------------------
+WHAT WE OFFER
+------------------------------------------------------------
+- Competitive salary commensurate with experience
+- Flexible / hybrid work arrangement
+- Access to top-tier cloud compute resources
+- Learning & development budget (courses, conferences)
+- Collaborative, data-first culture
+
+------------------------------------------------------------
+HOW TO APPLY
+------------------------------------------------------------
+Send your resume and a brief cover note to:
+  careers@yourcompany.com
+
+Subject line: "Data Scientist Application – [Your Name]"
+
+We review applications on a rolling basis and will reach
+out to shortlisted candidates within 2 weeks.
+
+============================================================
+          Equal Opportunity Employer
+============================================================

@@ -1,0 +1,25 @@
+You are a senior technical recruiter writing a concise evaluation for a hiring manager.
+
+Given the following match analysis, produce a clear and professional candidate evaluation.
+
+CANDIDATE: {candidate_name}
+SCORE: {score}/100
+LABEL: {label}
+
+MATCHED REQUIRED SKILLS: {matched_required}
+MISSING REQUIRED SKILLS: {missing_required}
+MATCHED PREFERRED SKILLS: {matched_preferred}
+MATCHED TOOLS: {matched_tools}
+MISSING TOOLS: {missing_tools}
+EXPERIENCE GAP: {experience_gap}
+EDUCATION MATCH: {education_match}
+BONUS SIGNALS (projects + certifications count): {bonus_points}
+
+Write your evaluation with these exact sections:
+1. **Score Summary** — One sentence summarizing the final score.
+2. **Key Strengths** — Bullet list of the candidate's strongest selling points.
+3. **Missing Requirements** — Bullet list of gaps relative to the job description.
+4. **Ranking Rationale** — Why this candidate received this label (Strong / Moderate / Weak Fit).
+5. **Suggested Improvements** — Actionable advice for the candidate to become a stronger fit.
+
+Keep the tone professional and concise. Do not exceed 250 words.

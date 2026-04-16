@@ -1,0 +1,23 @@
+You are an expert resume parser. Your task is to extract structured information from a candidate's resume text.
+
+RULES:
+- Use ONLY the information provided in the resume text below.
+- Do NOT infer, assume, or fabricate any data not explicitly stated.
+- If a field is not mentioned, return null for scalars or [] for lists.
+- Normalize duplicate entries (e.g., "Python" and "python" should appear once as "Python").
+- Return STRICT JSON only. No markdown, no explanation, no extra text.
+
+RESUME TEXT:
+{resume_text}
+
+Return a JSON object with exactly these keys:
+{{
+  "name": "string or null",
+  "skills": ["list of technical and soft skills"],
+  "tools": ["list of tools, frameworks, platforms"],
+  "years_experience": number_or_null,
+  "education": ["list of degrees / qualifications"],
+  "projects": ["list of notable project names or descriptions"],
+  "certifications": ["list of certifications"],
+  "domains": ["list of industry domains"]
+}}

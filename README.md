@@ -94,7 +94,7 @@ A concise collection of GenAI notebooks and prompt engineering experiments.
 | Task | Description | Notebook | Status |
 |:----:|:------------|:---------|:------:|
 | **Task 1** | Prompt Templates using LangChain<br/>• Reusable prompt template design<br/>• LangChain-based prompt workflows<br/>• Structured prompting for GenAI use cases | [📓 View Task 1](IN226099102_GenAI/Task_%E2%80%93_1_GenAI_%E2%80%93_Prompt_Templates_using_LangChain.ipynb) | ✅ Complete |
-| **Task 2** | LangChain deep-dive: chaining, RAG, agents, and Colab notebook documented | [📓 View Task 2](IN226099102_GenAI/LangChain_Blog_Documented%5BFinal%5D.ipynb) | ✅ Complete |
+| **Task 2** | LangChain deep-dive: chaining, RAG, agents, and Colab notebook documented | [📓 View Task 2](IN226099102_GenAI/Task_2_GenAi_LangChain_Blog_Documented%5BFinal%5D.ipynb) | ✅ Complete |
 
 ---
 ## 🏆 HackerRank Practice Journey

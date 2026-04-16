@@ -1,0 +1,21 @@
+You are an expert job description analyst. Your task is to extract structured requirements from a job description.
+
+RULES:
+- Use ONLY the information provided in the job description text below.
+- Do NOT infer, assume, or fabricate any requirements not explicitly stated.
+- If a field is not mentioned, return null for scalars or [] for lists.
+- Distinguish between "required" and "preferred" skills clearly.
+- Return STRICT JSON only. No markdown, no explanation, no extra text.
+
+JOB DESCRIPTION TEXT:
+{jd_text}
+
+Return a JSON object with exactly these keys:
+{{
+  "role_title": "string or null",
+  "required_skills": ["list of explicitly required skills"],
+  "preferred_skills": ["list of preferred / nice-to-have skills"],
+  "tools": ["list of tools and platforms required or preferred"],
+  "min_years_experience": number_or_null,
+  "education_requirements": ["list of degree or education requirements"]
+}}
