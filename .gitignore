@@ -24,3 +24,11 @@ Thumbs.db
 dist/
 build/
 *.egg-info/
+
+
+#agents and agent skills
+.agent
+.agents
+*/.agent
+*/.agents
+skills-lock.json
